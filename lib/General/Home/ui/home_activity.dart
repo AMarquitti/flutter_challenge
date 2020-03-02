@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HomeActivity extends StatefulWidget{
-  @override
-  _HomeActivityState createState() => _HomeActivityState();
-}
-
-class _HomeActivityState extends State<HomeActivity> {
+class HomeActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,14 +11,13 @@ class _HomeActivityState extends State<HomeActivity> {
             padding: const EdgeInsets.all(8.0),
             child: ActionChip(
                 elevation: 1,
-                backgroundColor:Colors.deepOrange,
+                backgroundColor: Colors.deepOrange,
                 label: Container(
                     width: 75,
                     child: Text("All",
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white))),
                 onPressed: () {
-                  setState(() {});
                 }),
           ),
           Padding(
@@ -36,7 +30,6 @@ class _HomeActivityState extends State<HomeActivity> {
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white))),
                 onPressed: () {
-                  setState(() {});
                 }),
           ),
           Padding(
@@ -49,7 +42,6 @@ class _HomeActivityState extends State<HomeActivity> {
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white))),
                 onPressed: () {
-                  setState(() {});
                 }),
           ),
         ]);

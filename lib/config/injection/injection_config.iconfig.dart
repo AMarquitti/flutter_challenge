@@ -8,8 +8,8 @@ import 'package:challenge/core/api/api_dev.dart';
 import 'package:challenge/core/api/api.dart';
 import 'package:challenge/core/api/api_prod.dart';
 import 'package:challenge/User/repositories/user_repository.dart';
-import 'package:challenge/General/Auth/repository/auth_repository.dart';
-import 'package:challenge/General/Auth/store/auth_store.dart';
+import 'package:challenge/General/Auth/repositories/auth_repository.dart';
+import 'package:challenge/General/Auth/state/auth_store.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {

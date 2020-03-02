@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:auto_route/transitions_builders.dart';
 import 'package:challenge/General/Auth/ui/auth_page.dart';
-import 'package:challenge/views/home.dart';
+import 'package:challenge/General/Home/ui/home.dart';
 
 import '../../General/Splash/ui/splash.dart';
 

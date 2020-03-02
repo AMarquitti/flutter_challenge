@@ -1,15 +1,14 @@
 import 'dart:convert';
 
+import 'package:challenge/User/model/user_model.dart';
 import 'package:challenge/core/utils/custom_exception.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/api/api.dart';
-import '../../../core/models/user_model.dart';
 
 @injectable
 class AuthRepository {

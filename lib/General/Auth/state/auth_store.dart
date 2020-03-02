@@ -1,7 +1,8 @@
-import 'package:challenge/General/Auth/repository/auth_repository.dart';
-import 'package:challenge/core/models/user_model.dart';
+import 'package:challenge/User/model/user_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+
+import '../repositories/auth_repository.dart';
 
 @injectable
 class AuthStore {

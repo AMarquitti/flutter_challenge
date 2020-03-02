@@ -9,7 +9,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import '../../../config/injection/injection_config.dart';
 import '../../../config/router/routing.gr.dart';
 import '../../../core/res/color_palette.dart';
-import '../store/auth_store.dart';
+import '../state/auth_store.dart';
 
 class AuthPage extends HookWidget with AutoRouteWrapper {
   final GlobalKey<FormState> _formKey = GlobalKey();
