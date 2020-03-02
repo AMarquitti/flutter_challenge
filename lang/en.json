@@ -1,0 +1,10 @@
+{
+  "login": {
+    "loginButton": "Login",
+    "username": "Username",
+    "password": "Password"
+  },
+  "splash": {
+    "title": "Find your new challenge!"
+  }
+}
