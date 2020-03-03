@@ -4,13 +4,13 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:challenge/General/Home/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/router_utils.dart';
 import 'package:challenge/General/Splash/ui/splash.dart';
 import 'package:challenge/General/Auth/ui/auth_page.dart';
 import 'package:auto_route/transitions_builders.dart';
+import 'package:challenge/General/Home/ui/home.dart';
 
 class Router {
   static const splash = '/';
@@ -38,7 +38,8 @@ class Router {
         );
       case Router.homePage:
         return PageRouteBuilder(
-          pageBuilder: (ctx, animation, secondaryAnimation) => Home(),
+          pageBuilder: (ctx, animation, secondaryAnimation) =>
+              Home().wrappedRoute,
           settings: settings,
           transitionsBuilder: TransitionsBuilders.fadeIn,
           transitionDuration: Duration(milliseconds: 1500),
