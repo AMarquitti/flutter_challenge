@@ -12,6 +12,7 @@ import 'package:challenge/General/Auth/repositories/auth_repository.dart';
 import 'package:challenge/General/Auth/state/auth_store.dart';
 import 'package:challenge/General/Home/repositories/home_repository.dart';
 import 'package:challenge/General/Home/state/home_store.dart';
+import 'package:challenge/config/global_config.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
@@ -30,6 +31,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<HomeStore>(() => HomeStore(
         g<HomeRepository>(),
       ));
+  g.registerLazySingleton<GlobalConfig>(() => GlobalConfig());
 
   //Register dev Dependencies --------
   if (environment == 'dev') {

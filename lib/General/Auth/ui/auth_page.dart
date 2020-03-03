@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route_wrapper.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,6 +8,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import '../../../config/injection/injection_config.dart';
 import '../../../config/router/routing.gr.dart';
 import '../../../core/res/color_palette.dart';
+import '../../../core/widgets/lang_changer.dart';
 import '../state/auth_store.dart';
 
 class AuthPage extends HookWidget with AutoRouteWrapper {
@@ -16,7 +16,7 @@ class AuthPage extends HookWidget with AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<String> _langAnimation = useState("reverse");
+    final ValueNotifier<String> _langAnimation = useState(globalConfig.lang == "en" ? "reverse" : "forward");
     final ValueNotifier<bool> _showPassword = useState(false);
     final ValueNotifier<String> _username = useState("");
     final ValueNotifier<String> _password = useState("");
@@ -137,23 +137,8 @@ class AuthPage extends HookWidget with AutoRouteWrapper {
       );
     }
 
-    FlatButton buildRawMaterialButton() {
-      return FlatButton(
-        onPressed: () async {
-          final String locale = _langAnimation.value == "forward" ? "es" : "en";
-          await FlutterI18n.refresh(context, Locale(locale));
-          _langAnimation.value =
-              _langAnimation.value == "forward" ? "reverse" : "forward";
-        },
-        splashColor: Colors.deepOrange,
-        shape: const CircleBorder(),
-        color: Colors.black,
-        child: FlareActor("assets/img/flag.flr",
-            sizeFromArtboard: true,
-            alignment: Alignment.center,
-            fit: BoxFit.contain,
-            animation: _langAnimation.value),
-      );
+    Widget buildRawMaterialButton() {
+      return getLangChanger(context, _langAnimation);
     }
 
     Container _buildLoginForm() {

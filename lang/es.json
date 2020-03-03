@@ -6,5 +6,8 @@
   },
   "splash": {
     "title": "Encuentra tu nuevo desafio!"
+  },
+  "home":{
+    "title": "Nuevos desafios te esperan!"
   }
 }

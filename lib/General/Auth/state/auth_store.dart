@@ -17,7 +17,7 @@ class AuthStore {
     @required String username,
     @required String password,
   }) async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 1));
     final result =
         await _authRepository.authUser(username: username, password: password);
     result.fold(

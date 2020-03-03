@@ -9,7 +9,7 @@ void main() => runApp(ChallengeApp());
 
 class ChallengeApp extends StatelessWidget {
   final FlutterI18nDelegate flutterI18nDelegate = FlutterI18nDelegate(
-      useCountryCode: false, fallbackFile: 'es', path: 'lang', forcedLocale: const Locale("es"));
+      useCountryCode: false, fallbackFile: "es", path: 'lang', forcedLocale: const Locale("es"));
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
