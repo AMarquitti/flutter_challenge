@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:challenge/User/model/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class UserCard extends StatelessWidget {
   final UserModel user;
@@ -44,11 +46,15 @@ class UserCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
-        Navigator.pushNamed(
-          context,
-          "/profile",
-          arguments: user,
-        );
+        Fluttertoast.showToast(
+        msg: FlutterI18n.translate(context, "tips.userCard"),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
       },
       child: Stack(
         alignment: const Alignment(0.9, 0.45),

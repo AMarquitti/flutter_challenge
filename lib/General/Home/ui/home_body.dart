@@ -1,3 +1,4 @@
+import 'package:challenge/config/injection/injection_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -11,7 +12,6 @@ class HomeBody extends HookWidget {
   @override
   Widget build(BuildContext context) {
     useInitializeUserList();
-
     Center buildLoading() {
       return Center(
         child: CircularProgressIndicator(
@@ -22,7 +22,7 @@ class HomeBody extends HookWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: globalConfig.themeLight ? Colors.white : Colors.black87,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       margin: const EdgeInsets.all(5),
@@ -57,6 +57,9 @@ class HomeBody extends HookWidget {
 
   Widget buildGridView(List<UserModel> userList) => Container(
         margin: const EdgeInsets.only(top: 0, right: 10, bottom: 10),
+        decoration: BoxDecoration(
+          color: globalConfig.themeLight ? Colors.white : Colors.black87,
+        ),
         child: GridView.count(
           primary: true,
           shrinkWrap: true,

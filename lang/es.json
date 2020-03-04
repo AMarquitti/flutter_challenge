@@ -9,5 +9,23 @@
   },
   "home":{
     "title": "Nuevos desafios te esperan!"
+    ,"searchHolder": "Encuentra tu motivación"
+    ,"activity":{
+       "all":"Todos"
+      ,"runners":"Corredores"
+      ,"aerobic":"Aerobico"
+    }
+  },
+  "menu":{
+    "exit": "Cerrar sesión"
+    ,"changeTheme": "Tema oscuro"
+  },
+  "tips":{
+    "userCard": "No Imp.: Intenta con el menu lateral"
+  },
+  "exit":{
+    "title": "Estas seguro?"
+    ,"body": "Quieres salir de la app"
+    ,"yes": "Si"
   }
 }

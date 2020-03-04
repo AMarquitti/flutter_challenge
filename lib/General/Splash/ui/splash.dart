@@ -1,21 +1,23 @@
+import 'package:challenge/config/injection/injection_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../config/router/routing.gr.dart';
-import '../hooks/initialize_dependencies_hook.dart';
 
 class Splash extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    useInitializeDependencies();
     final AnimationController animationController =
         useAnimationController(duration: const Duration(seconds: 2));
-    animationController.forward().whenComplete(
-        () => Router.navigator.pushNamedAndRemoveUntil(Router.authPage,  (Route<dynamic> route) => false));
+    animationController.forward().whenComplete(() => Router.navigator
+        .pushNamedAndRemoveUntil(
+            Router.authPage, (Route<dynamic> route) => false));
 
     return Scaffold(
         appBar: null,
+        backgroundColor:
+            globalConfig.themeLight ? Colors.white : Colors.black87,
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

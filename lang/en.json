@@ -9,5 +9,23 @@
   },
   "home":{
     "title": "New challenges await you!"
+    ,"searchHolder": "Find your new motivation"
+    ,"activity":{
+       "all":"All"
+      ,"runners":"Runners"
+      ,"aerobic":"Aerobic"
+    }
+  },
+  "menu":{
+    "exit": "Logout"
+    ,"changeTheme": "Dark theme"
+  },
+  "tips":{
+    "userCard": "Not Implemented: Try with the lateral menu"
+  },
+  "exit":{
+    "title": "Are you sure?"
+    ,"body": "Do you want to exit an App"
+    ,"yes": "Yes"
   }
 }

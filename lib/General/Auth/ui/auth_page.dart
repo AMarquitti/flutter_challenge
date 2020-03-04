@@ -16,7 +16,7 @@ class AuthPage extends HookWidget with AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<String> _langAnimation = useState(globalConfig.lang == "en" ? "reverse" : "forward");
+    final ValueNotifier<String> _langAnimation = useState(globalConfig.lang == "en" ? "forward" : "reverse");
     final ValueNotifier<bool> _showPassword = useState(false);
     final ValueNotifier<String> _username = useState("");
     final ValueNotifier<String> _password = useState("");

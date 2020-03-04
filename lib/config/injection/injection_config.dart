@@ -7,10 +7,10 @@ import 'injection_config.iconfig.dart';
 final GetIt getIt = GetIt.instance;
 GlobalConfig globalConfig;
 @injectableInit
-void configureInjections(){
+Future<void> configureInjections() async {
  $initGetIt(getIt,environment: Env.prod);
  globalConfig = getIt<GlobalConfig>();
- globalConfig.init();
+ await globalConfig.init();
 }
 abstract class Env{
   static const dev  = 'dev';
