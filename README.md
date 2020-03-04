@@ -1,4 +1,4 @@
-# Flutter Challenge
+# Flutter Challenge [![Codemagic build status](https://api.codemagic.io/apps/5e5962a26d68360011243889/5e5962a26d68360011243888/status_badge.svg)](https://codemagic.io/apps/5e5962a26d68360011243889/5e5962a26d68360011243888/latest_build)
 Demo application -  Workout Challenge
 
 ## Features
