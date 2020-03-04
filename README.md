@@ -27,7 +27,7 @@ The application idea is find motivational competitors that help you to improve y
 Also you be able to filter for different categories, for the demo are only two users activities: Runners and Aerobic Workout with their respective metrics. The search is dynamic and depend on the current activity selected in the main filter.
 
 # The UI:
-The UI is simple but dynamic with stream builders allowing to the final user a fluence and animated experience, but also limited in design because the timeline of a demo.
+The UI is simple but dynamic allowing to the final user a fluence and animated experience, but also limited in design because the timeline of a demo.
 
 ![alt text](https://firebasestorage.googleapis.com/v0/b/cfv-proyect.appspot.com/o/extras%2FtempFileForShare_20200304-185422.jpg?alt=media&token=4acbb989-6eec-42a3-89b9-4519363e23c9)
 ![alt text](https://firebasestorage.googleapis.com/v0/b/cfv-proyect.appspot.com/o/extras%2FtempFileForShare_20200304-184436.jpg?alt=media&token=5c8508f1-8bc3-4f9f-b02f-a59117d9119b)
