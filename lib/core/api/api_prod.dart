@@ -18,6 +18,7 @@ class ApiProd extends Api {
   ApiProd() : super(Dio(_baseOptions)) {
     addInterceptors(interceptorsWrapper);
   }
+  
 
   @override
   void addInterceptors(InterceptorsWrapper interceptorsWrapper) {
