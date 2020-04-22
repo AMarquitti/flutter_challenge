@@ -1,5 +1,11 @@
 import 'package:dio/dio.dart';
 
 abstract class Api {
-  Dio get client;
+  
+  final Dio client;
+
+  Api(this.client);
+
+  void addInterceptors(InterceptorsWrapper interceptorsWrapper);
+
 }
