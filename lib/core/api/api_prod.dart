@@ -5,18 +5,22 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 
 @RegisterAs(Api, env: Env.prod)
-@injectable
-class ApiProd implements Api {
+@lazySingleton
+class ApiProd extends Api {
   static final BaseOptions _baseOptions =
       BaseOptions(baseUrl: DotEnv().env['BASE_URL_PROD'].toString());
-  @override
-  Dio get client => Dio(_baseOptions);
 
-  ApiProd() {
-    //Custom interceptors for DEV environment
-    client.interceptors
-        .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
-      return options;
-    }));
+  final InterceptorsWrapper interceptorsWrapper =
+      InterceptorsWrapper(onRequest: (RequestOptions options) async {
+    return options;
+  });
+
+  ApiProd() : super(Dio(_baseOptions)) {
+    addInterceptors(interceptorsWrapper);
+  }
+
+  @override
+  void addInterceptors(InterceptorsWrapper interceptorsWrapper) {
+    client.interceptors.add(interceptorsWrapper);
   }
 }
