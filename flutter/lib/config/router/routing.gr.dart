@@ -7,6 +7,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:auto_route/auto_route.dart';
+import 'package:challange_shared/model/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/auth/auth_page.dart';
@@ -48,13 +49,29 @@ class Router extends RouterBase {
       );
     },
     Home: (data) {
+      final args = data.getArgs<HomeArguments>(
+        orElse: () => HomeArguments(),
+      );
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            Home().wrappedRoute(context),
+        pageBuilder: (context, animation, secondaryAnimation) => Home(
+          key: args.key,
+          currentUser: args.currentUser,
+        ).wrappedRoute(context),
         settings: data,
         transitionsBuilder: TransitionsBuilders.fadeIn,
         transitionDuration: const Duration(milliseconds: 400),
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// Home arguments holder class
+class HomeArguments {
+  final Key key;
+  final UserModel currentUser;
+  HomeArguments({this.key, this.currentUser});
 }

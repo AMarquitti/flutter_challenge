@@ -27,5 +27,13 @@
     "title": "Estas seguro?"
     ,"body": "Quieres salir de la app"
     ,"yes": "Si"
+  },
+  
+  "titles": {
+    "authLanding": "NUEVOS"
+  },
+
+  "subtitles": {
+    "authLanding": "DESAFIOS"
   }
 }

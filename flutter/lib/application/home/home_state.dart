@@ -10,12 +10,13 @@ class HomeState {
   HomeState(this._homeRepository);
 
   final HomeRepository _homeRepository;
+  UserModel currentUser;
 
   List<UserModel> _competitors;
   List<UserModel> _activeUsers;
   List<UserModel> get competitors => _competitors;
   List<UserModel> activeUsers;
-
+  
   Future<void> fetchActiveUsers({int activity = 0}) async {
     final Either<List<UserModel>, Exception> result =
         await _homeRepository.fetchActiveUsers(activity: activity);

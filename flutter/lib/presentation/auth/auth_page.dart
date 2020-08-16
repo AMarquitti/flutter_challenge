@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,6 +10,8 @@ import '../../application/auth/auth_state.dart';
 import '../../config/injection/injection.dart';
 import '../../config/router/routing.gr.dart';
 import '../../core/res/color_palette.dart';
+import '../core/layouts/layout.dart';
+import '../core/styles/general_style.dart';
 import '../core/widgets/lang_changer.dart';
 
 class AuthPage extends HookWidget implements AutoRouteWrapper {
@@ -40,7 +43,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
           _formKey.currentState.save();
           submitForm(username: _username.value, password: _password.value);
         },
-        color: ColorPalette.primary,
+        color: ColorPalette.colorAccent,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         child: StateBuilder<AuthState>(
@@ -63,7 +66,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
           height: 100,
           padding: const EdgeInsets.all(2.0),
           decoration: const BoxDecoration(
-            color: Colors.deepOrange,
+            color: ColorPalette.colorAccent,
             shape: BoxShape.circle,
           ),
           child: const Hero(
@@ -90,7 +93,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
                 border: InputBorder.none,
                 icon: const Icon(
                   Icons.person,
-                  color: ColorPalette.primary,
+                  color: ColorPalette.primaryColor,
                 )),
           ));
     }
@@ -111,7 +114,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
                   border: InputBorder.none,
                   icon: const Icon(
                     Icons.lock,
-                    color: ColorPalette.primary,
+                    color: ColorPalette.primaryColor,
                   )),
             ),
             Align(
@@ -121,7 +124,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
                   icon: Icon(_showPassword.value
                       ? Icons.visibility
                       : Icons.visibility_off),
-                  color: ColorPalette.primary,
+                  color: ColorPalette.primaryColor,
                   onPressed: () => _showPassword.value = !_showPassword.value),
             )
           ],
@@ -133,7 +136,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
       return Container(
         padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
         child: const Divider(
-          color: ColorPalette.primaryDark,
+          color: ColorPalette.primaryColorDark,
         ),
       );
     }
@@ -181,31 +184,46 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
       );
     }
 
-    return Scaffold(
-        body: Form(
-      key: _formKey,
-      child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black,
-            image: DecorationImage(
-                image: const AssetImage('assets/img/splash_vertical.png'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.5), BlendMode.dstATop)),
-          ),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _buildLoginForm(),
-                const SizedBox(height: 50),
-                buildRawMaterialButton()
-              ])),
-    ));
+    return Layout(
+        title: Positioned(
+            top: 100,
+            left: 50,
+            child: Txt(
+              FlutterI18n.translate(context, 'titles.authLanding'),
+              style: titleWhite,
+            )),
+        subtitle: Positioned(
+            top: 150,
+            left: 140,
+            child: Txt(
+              FlutterI18n.translate(context, 'subtitles.authLanding'),
+              style: titleGreen,
+            )),
+        child: Form(
+          key: _formKey,
+          child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                image: DecorationImage(
+                    image: const AssetImage('assets/img/grey-bg.jpg'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.5), BlendMode.dstATop)),
+              ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const SizedBox(height: 100),
+                    _buildLoginForm(),
+                    const SizedBox(height: 50),
+                    buildRawMaterialButton()
+                  ])),
+        ));
   }
 
   Text buildLoginLabel(BuildContext context) {
     return Text(FlutterI18n.translate(context, 'login.loginButton'),
-        style: const TextStyle(color: Colors.white, fontSize: 16));
+        style: const TextStyle(color: Colors.black, fontSize: 16));
   }
 
   void submitForm({@required String username, @required String password}) {
@@ -219,12 +237,12 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
                 content: Text('$error'),
               ),
             ),
-        onData: (_, __) {
-          ExtendedNavigator.root
-              .pushAndRemoveUntil(Routes.home, (Route<dynamic> route) => false);
+        onData: (_, AuthState state) {
+          ExtendedNavigator.root.pushAndRemoveUntil(
+              Routes.home, (Route<dynamic> route) => false,
+              arguments: HomeArguments(currentUser: state.authUser));
         });
   }
-
 
   @override
   Widget wrappedRoute(BuildContext context) => Injector(

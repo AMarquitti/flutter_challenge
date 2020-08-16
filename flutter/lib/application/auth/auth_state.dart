@@ -15,15 +15,16 @@ class AuthState {
   UserModel get authUser => _authUser;
 
   /* For this demo the logged user will be a random user */
-  Future<void> loginUser({
+  Future<UserModel> loginUser({
     @required String username,
     @required String password,
   }) async {
-    final Either<UserModel, Exception> result =
+    final Either<Exception,UserModel> result =
         await _authRepository.authUser(username: username, password: password);
     result.fold(
-      (UserModel user) => _authUser = user,
       (Exception e) => throw e,
+      (UserModel user) => _authUser = user,
     );
+    return result.getOrElse(() => null);
   }
 }

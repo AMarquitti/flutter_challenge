@@ -9,14 +9,15 @@ import '../../../config/injection/injection.dart';
 import '../../core/widgets/lang_changer.dart';
 
 class HomeDrawer extends HookWidget {
-  const HomeDrawer(this._langAnimation, this._themeLight);
-  final ValueNotifier<String> _langAnimation;
-  final ValueNotifier<bool> _themeLight;
+  const HomeDrawer();
 
   @override
   Widget build(BuildContext context) {
     final TextStyle textStyle = TextStyle(
         color: globalConfig.themeLight ? Colors.black87 : Colors.white);
+    final ValueNotifier<String> _langAnimation =
+        useState(globalConfig.lang == 'es' ? 'reverse' : 'forward');
+    final ValueNotifier<bool> _themeLight = useState(globalConfig.themeLight);
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
