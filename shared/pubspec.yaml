@@ -1,0 +1,11 @@
+name: challange_shared
+description: Shared between challange app
+version: 0.0.1
+
+environment:
+  sdk: ">=2.0.0 <3.0.0"
+
+dev_dependencies:
+  test: ^1.15.3
+  build_runner: ^1.10.1
+

@@ -1,0 +1,1 @@
+[{"type":"UserRepository","bindTo":"UserRepository","isAsync":false,"preResolve":false,"injectableType":2,"imports":["package:challenge/User/repositories/user_repository.dart","package:challenge/core/api/api.dart"],"dependsOn":null,"dependencies":[{"type":"Api","isFactoryParam":false,"isPositional":true,"paramName":"_api"}],"constructorName":""}]
