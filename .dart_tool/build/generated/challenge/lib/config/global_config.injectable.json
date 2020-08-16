@@ -1,1 +1,0 @@
-[{"type":"GlobalConfig","bindTo":"GlobalConfig","isAsync":false,"preResolve":false,"injectableType":2,"imports":["package:challenge/config/global_config.dart"],"dependsOn":null,"dependencies":[],"constructorName":""}]
