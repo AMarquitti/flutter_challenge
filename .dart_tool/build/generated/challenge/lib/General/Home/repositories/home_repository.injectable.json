@@ -1,1 +1,0 @@
-[{"type":"HomeRepository","bindTo":"HomeRepository","isAsync":false,"preResolve":false,"injectableType":0,"imports":["package:challenge/General/Home/repositories/home_repository.dart","package:challenge/core/api/api.dart"],"dependsOn":null,"dependencies":[{"type":"Api","isFactoryParam":false,"isPositional":true,"paramName":"_api"}],"constructorName":""}]

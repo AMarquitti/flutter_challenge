@@ -1,1 +1,0 @@
-[{"type":"Api","bindTo":"ApiDev","isAsync":false,"preResolve":false,"injectableType":0,"imports":["package:challenge/core/api/api_dev.dart","package:challenge/core/api/api.dart"],"dependsOn":null,"dependencies":[],"environment":"dev","constructorName":""}]
