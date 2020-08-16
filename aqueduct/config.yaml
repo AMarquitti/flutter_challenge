@@ -1,6 +1,0 @@
-database:
- username: alejandro.sosa
- password: 
- host: localhost
- port: 5432
- databaseName: challange
