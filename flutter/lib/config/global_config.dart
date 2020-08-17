@@ -44,12 +44,12 @@ class GlobalConfig {
       return ThemeData(
           primaryColor: ColorRes.primaryColor,
           backgroundColor: ColorRes.contentColor,
-          fontFamily: 'Lato');
+          fontFamily: 'raleway');
     } else {
       return ThemeData(
           primaryColor: ColorRes.primaryColor,
           backgroundColor: ColorRes.contentDarkColor,
-          fontFamily: 'Lato');
+          fontFamily: 'raleway');
     }
   }
 }

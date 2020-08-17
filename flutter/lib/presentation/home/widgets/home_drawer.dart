@@ -1,22 +1,23 @@
-import 'dart:io';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../config/injection/injection.dart';
+import '../../../config/router/routing.gr.dart';
 import '../../core/widgets/lang_changer.dart';
 
 class HomeDrawer extends HookWidget {
-  const HomeDrawer(this._langAnimation, this._themeLight);
-  final ValueNotifier<String> _langAnimation;
-  final ValueNotifier<bool> _themeLight;
+  const HomeDrawer();
 
   @override
   Widget build(BuildContext context) {
     final TextStyle textStyle = TextStyle(
         color: globalConfig.themeLight ? Colors.black87 : Colors.white);
+    final ValueNotifier<String> _langAnimation =
+        useState(globalConfig.lang == 'es' ? 'reverse' : 'forward');
+    final ValueNotifier<bool> _themeLight = useState(globalConfig.themeLight);
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
@@ -87,7 +88,8 @@ class HomeDrawer extends HookWidget {
                 color: globalConfig.themeLight ? Colors.black87 : Colors.white,
               ),
               onTap: () {
-                exit(0);
+                ExtendedNavigator.root.pushAndRemoveUntil(
+                    Routes.authPage, (Route<dynamic> route) => false);
               },
             ),
           ],

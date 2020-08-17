@@ -7,25 +7,51 @@
   "splash": {
     "title": "Find your new challenge!"
   },
-  "home":{
-    "title": "New challenges await you!"
-    ,"searchHolder": "Find your new motivation"
-    ,"activity":{
-       "all":"All"
-      ,"runners":"Runners"
-      ,"aerobic":"Aerobic"
+  "home": {
+    "title": "New challenges await you!",
+    "searchHolder": "Find your new motivation",
+    "activity": {
+      "all": "All",
+      "runners": "Runners",
+      "aerobic": "Aerobic"
     }
   },
-  "menu":{
-    "exit": "Logout"
-    ,"changeTheme": "Dark theme"
+  "menu": {
+    "exit": "Logout",
+    "changeTheme": "Dark theme"
   },
-  "tips":{
-    "userCard": "Not Implemented: Try with the lateral menu"
+  "tips": {
+    "userCard": "Not Implemented: Try with the user profile"
   },
-  "exit":{
-    "title": "Are you sure?"
-    ,"body": "Do you want to exit an App"
-    ,"yes": "Yes"
+  "exit": {
+    "title": "Are you sure?",
+    "body": "Do you want to exit an App",
+    "yes": "Yes"
+  },
+
+  "titles": {
+    "authLanding": "WORKOUTS"
+  },
+
+  "subtitles": {
+    "authLanding": "FOR YOU",
+    "recommended": "Recommended Workouts",
+    "news": "New Workouts",
+    "friends": "Friends",
+    "favrites": "Favourites Workouts"
+  },
+
+  "activitiesOne": {
+    "title": "GET STRONG",
+    "subtitle": "ALL LEVELS"
+  },
+
+  "activitiesTwo": {
+    "title": "BASIC",
+    "subtitle": "BEGINNERS"
+  },
+  "activitiesThree": {
+    "title": "AEROBIC",
+    "subtitle": "ADVANCES"
   }
 }
