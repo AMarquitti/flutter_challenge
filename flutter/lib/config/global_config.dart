@@ -11,7 +11,7 @@ import 'router/routing.gr.dart';
 class GlobalConfig {
   SharedPreferences prefs;
   String lang = 'en';
-  bool themeLight = true;
+  bool themeLight = false;
   Router router;
   FlutterI18nDelegate flutterI18nDelegate;
 
@@ -35,7 +35,7 @@ class GlobalConfig {
   }
 
   Future<void> setGlobalTheme({@required bool themeValue}) async {
-    themeLight = themeValue;
+    themeLight = !themeValue;
     prefs.setBool('theme', themeLight);
   }
 

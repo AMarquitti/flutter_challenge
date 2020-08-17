@@ -35,7 +35,7 @@ class ProfileBody extends HookWidget {
         Container(
           height: 100,
           decoration: const BoxDecoration(
-            color: Colors.white,
+            color: Colors.transparent,
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           margin: const EdgeInsets.only(right: 5),
@@ -63,7 +63,7 @@ class ProfileBody extends HookWidget {
   Widget buildGridView(List<UserModel> userList) => Container(
         margin: const EdgeInsets.only(right: 10, bottom: 10),
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: Colors.transparent,
         ),
         child: ListView(
           scrollDirection: Axis.horizontal,

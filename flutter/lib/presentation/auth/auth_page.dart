@@ -25,6 +25,8 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
     final ValueNotifier<String> _username = useState('');
     final ValueNotifier<String> _password = useState('');
 
+     final Size _screen = MediaQuery.of(context).size;
+
     SizedBox buildCircularProgress() {
       return const SizedBox(
           width: 20,
@@ -148,6 +150,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
     Container _buildLoginForm() {
       return Container(
         padding: const EdgeInsets.all(20.0),
+        margin: const EdgeInsets.only(top:50),
         child: Stack(
           children: <Widget>[
             ClipPath(
@@ -162,7 +165,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const SizedBox(height: 90.0),
+                    const SizedBox(height: 50.0),
                     buildInputUsername(),
                     buildDivider(),
                     buildInputPassword(),
@@ -174,7 +177,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
             ),
             buildCenterLogo(),
             Container(
-                height: 430,
+                height: 390,
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: buildRaisedButton(),
@@ -186,15 +189,15 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
 
     return Layout(
         title: Positioned(
-            top: 100,
-            left: 50,
+            top: _screen.height * 0.10,
+            left: _screen.width * 0.05,
             child: Txt(
               FlutterI18n.translate(context, 'titles.authLanding'),
               style: titleWhite,
             )),
         subtitle: Positioned(
-            top: 150,
-            left: 140,
+             top: _screen.height * 0.16,
+            left: _screen.width * 0.35,
             child: Txt(
               FlutterI18n.translate(context, 'subtitles.authLanding'),
               style: titleGreen,
@@ -215,7 +218,7 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
                   children: <Widget>[
                     const SizedBox(height: 100),
                     _buildLoginForm(),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 30),
                     buildRawMaterialButton()
                   ])),
         ));

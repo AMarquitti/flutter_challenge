@@ -1,6 +1,11 @@
-### Screenshots
+### Screenshots Mobile build
 -----------------------
 ![alt text](https://firebasestorage.googleapis.com/v0/b/workout-d9eaf.appspot.com/o/Screen%20Shot%202020-08-16%20at%2022.07.25.png?alt=media&token=3baa2d73-b558-4cfb-9d66-a1a7ea0cbda6)
+
+### Screenshots Web build
+-----------------------
+![alt text](https://firebasestorage.googleapis.com/v0/b/workout-d9eaf.appspot.com/o/Screen%20Shot%202020-08-17%20at%2013.25.48.png?alt=media&token=3e0fc6d6-0a54-4b25-a90e-cc14db58af66)
+
 
 ### XD base Mockup
 -----------------------
