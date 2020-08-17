@@ -239,8 +239,8 @@ class AuthPage extends HookWidget implements AutoRouteWrapper {
             ),
         onData: (_, AuthState state) {
           ExtendedNavigator.root.pushAndRemoveUntil(
-              Routes.home, (Route<dynamic> route) => false,
-              arguments: HomeArguments(currentUser: state.authUser));
+              Routes.homePage, (Route<dynamic> route) => false,
+              arguments: HomePageArguments(currentUser: state.authUser));
         });
   }
 

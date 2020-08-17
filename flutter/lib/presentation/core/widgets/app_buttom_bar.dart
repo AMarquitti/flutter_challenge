@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../config/router/routing.gr.dart';
 import '../../../core/res/color_palette.dart';
+import '../styles/general_style.dart';
 // ignore_for_file: sort_constructors_first
 
 class AppBottomBar extends StatelessWidget {
@@ -14,13 +15,7 @@ class AppBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Parent(
-      style: ParentStyle()
-        ..boxShadow(
-            color: ColorPalette.primaryColor,
-            offset: const Offset(2, 1),
-            blur: 10,
-            spread: 0.2)
-        ..padding(top: 2),
+      style: ParentStyle()..padding(top: 2),
       child: ClipRRect(
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(12),
@@ -33,7 +28,7 @@ class AppBottomBar extends StatelessWidget {
 
 class AppBottomBarContent extends BottomNavigationBar {
   static const int home = 0;
-  static const int statistics = 1;
+  static const int profile = 1;
 
   AppBottomBarContent({
     int currentIndex = 0,
@@ -44,29 +39,28 @@ class AppBottomBarContent extends BottomNavigationBar {
           currentIndex: currentIndex,
           selectedFontSize: 12,
           unselectedFontSize: 12,
-          backgroundColor: Colors.white,
-          elevation: 10,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           items: <BottomNavigationBarItem>[
             AppBottomNavigationBarItem(
-              text: 'Inicio',
+              text: 'Home',
               active: AppBottomBarContent.home == currentIndex,
-              iconName: 'home_icon.png',
+              iconName: Icons.home,
             ),
             AppBottomNavigationBarItem(
-              text: 'Statistics',
-              active: AppBottomBarContent.statistics == currentIndex,
-              iconName: 'account_icon.png',
+              text: 'Profile',
+              active: AppBottomBarContent.profile == currentIndex,
+              iconName: Icons.person,
             ),
-        
           ],
           onTap: (int index) {
-            if(index == currentIndex) return false;
+            if (index == currentIndex) return false;
             switch (index) {
               case home:
                 ExtendedNavigator.root.pushAndRemoveUntil(
-                    Routes.home, (Route<dynamic> route) => false);
+                    Routes.homePage, (Route<dynamic> route) => false);
                 break;
-              case statistics:
+              case profile:
                 break;
             }
           },
@@ -79,17 +73,17 @@ class AppBottomNavigationBarItem extends BottomNavigationBarItem {
     @required this.text,
     @required this.active,
   }) : super(
-          icon: Icon(Icons.home,
-              color: ColorPalette.colorAccent, size: 22),
+          icon: Icon(iconName, color: ColorPalette.colorAccent, size: 22),
           title: Container(
             margin: const EdgeInsets.only(top: 2),
-            child: Text(
+            child: Txt(
               text,
+              style: subtitleStyle.clone()..fontSize(14),
             ),
           ),
         );
 
-  final String iconName;
+  final IconData iconName;
   final String text;
   final bool active;
 }

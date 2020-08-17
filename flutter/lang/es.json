@@ -21,7 +21,7 @@
     ,"changeTheme": "Tema oscuro"
   },
   "tips":{
-    "userCard": "No Imp.: Intenta con el menu lateral"
+    "userCard": "No Imp.: Intenta con el perfil de usuario"
   },
   "exit":{
     "title": "Estas seguro?"
@@ -34,6 +34,24 @@
   },
 
   "subtitles": {
-    "authLanding": "DESAFIOS"
+    "authLanding": "DESAFIOS",
+    "recommended": "Recomendados para vos",
+    "news": "Nuevas rutinas",
+    "friends": "Tus Amigos",
+    "favrites": "Rutinas Favoritas"
+  },
+
+  "activitiesOne": {
+    "title": "FUERZA",
+    "subtitle": "TODOS LOS NIVELES"
+  },
+
+  "activitiesTwo": {
+    "title": "BASICO",
+    "subtitle": "PRINCIPIANTE"
+  },
+  "activitiesThree": {
+    "title": "AEROBICO",
+    "subtitle": "AVANZADO"
   }
 }

@@ -17,7 +17,7 @@ class UserRepository {
     final List<UserModel> userList = <UserModel>[];
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final Response<dynamic> response = await _api.client
-        .get('?results=75&inc=gender,name,picture,email,phone,dob,cell&nat=us');
+        .get('?results=10&inc=gender,name,picture,email,phone,dob,cell&nat=us');
     response.data['results'].forEach((dynamic userData) {
       userList.add(UserModel.fromJson(userData));
     });

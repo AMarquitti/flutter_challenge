@@ -1,8 +1,8 @@
-import '../../../config/injection/injection.dart';
-import '../../../core/res/color_palette.dart';
-import '../../home/widgets/home_drawer.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/res/color_palette.dart';
+import '../../home/widgets/home_drawer.dart';
 
 class Layout extends StatelessWidget {
   const Layout({
@@ -17,6 +17,7 @@ class Layout extends StatelessWidget {
     this.title = const SizedBox(),
     this.subtitle = const SizedBox(),
     this.drawer = false,
+    this.backgroundColor,
   }) : super(key: key);
 
   final Widget child;
@@ -29,6 +30,7 @@ class Layout extends StatelessWidget {
   final Widget title;
   final Widget subtitle;
   final bool drawer;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class Layout extends StatelessWidget {
     return Scaffold(
       drawer: drawer ? const HomeDrawer() : null,
       bottomNavigationBar: bottomNavigationBar,
-      backgroundColor: globalConfig.themeLight ? Colors.white : Colors.black87,
+      backgroundColor: backgroundColor ?? Colors.white,
       body: Stack(
         children: <Widget>[
           child,
@@ -137,7 +139,7 @@ class Layout extends StatelessWidget {
         Visibility(
           visible: hideTopLeft != true,
           child: Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20.0),
+              padding: const EdgeInsets.only(top: 40.0, left: 20.0),
               child: widgetTopLeft),
         ),
         Visibility(

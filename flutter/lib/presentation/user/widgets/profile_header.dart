@@ -8,8 +8,8 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import '../../../application/home/home_state.dart';
 import '../../../core/res/color_palette.dart';
 
-class HomeHeader extends StatelessWidget {
-  const HomeHeader({Key key}) : super(key: key);
+class ProfileHeader extends StatelessWidget {
+  const ProfileHeader({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

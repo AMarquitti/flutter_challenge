@@ -21,7 +21,7 @@
     "changeTheme": "Dark theme"
   },
   "tips": {
-    "userCard": "Not Implemented: Try with the lateral menu"
+    "userCard": "Not Implemented: Try with the user profile"
   },
   "exit": {
     "title": "Are you sure?",
@@ -34,6 +34,24 @@
   },
 
   "subtitles": {
-    "authLanding": "FOR YOU"
+    "authLanding": "FOR YOU",
+    "recommended": "Recommended Workouts",
+    "news": "New Workouts",
+    "friends": "Friends",
+    "favrites": "Favourites Workouts"
+  },
+
+  "activitiesOne": {
+    "title": "GET STRONG",
+    "subtitle": "ALL LEVELS"
+  },
+
+  "activitiesTwo": {
+    "title": "BASIC",
+    "subtitle": "BEGINNERS"
+  },
+  "activitiesThree": {
+    "title": "AEROBIC",
+    "subtitle": "ADVANCES"
   }
 }

@@ -1,11 +1,11 @@
-import 'dart:io';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../../config/injection/injection.dart';
+import '../../../config/router/routing.gr.dart';
 import '../../core/widgets/lang_changer.dart';
 
 class HomeDrawer extends HookWidget {
@@ -88,7 +88,8 @@ class HomeDrawer extends HookWidget {
                 color: globalConfig.themeLight ? Colors.black87 : Colors.white,
               ),
               onTap: () {
-                exit(0);
+                ExtendedNavigator.root.pushAndRemoveUntil(
+                    Routes.authPage, (Route<dynamic> route) => false);
               },
             ),
           ],

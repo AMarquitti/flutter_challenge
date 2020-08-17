@@ -1,35 +1,33 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:challange_shared/model/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../config/router/routing.gr.dart';
 import '../../../core/res/color_palette.dart';
 
 class UserCard extends StatelessWidget {
-  const UserCard({this.user});
+  const UserCard({this.user, this.radius = 36});
   final UserModel user;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-        Fluttertoast.showToast(
-            msg: FlutterI18n.translate(context, 'tips.userCard'),
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
-            backgroundColor: Colors.black87,
-            textColor: Colors.white);
+        ExtendedNavigator.root.pushAndRemoveUntil(
+            Routes.profilePage, (Route<dynamic> route) => true,
+            arguments: ProfilePageArguments(currentUser: user));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.all(2),
+        margin: const EdgeInsets.only(right: 10),
         decoration: const BoxDecoration(
           color: ColorPalette.colorAccent,
           shape: BoxShape.circle,
         ),
         child: CircleAvatar(
-          radius: 35,
+          radius: radius,
           foregroundColor: Colors.white,
           backgroundImage: CachedNetworkImageProvider(user.picture.large),
         ),

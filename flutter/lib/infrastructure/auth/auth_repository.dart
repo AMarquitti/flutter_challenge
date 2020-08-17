@@ -31,6 +31,7 @@ class AuthRepository {
 
       final UserModel authUser = UserModel.fromMap(response.data['results'][0]);
       prefs.setString('authUser', json.encode(authUser));
+      prefs.setString('token', 'somerandomtoken');
 
       return right(authUser);
     } on DioError catch (_) {

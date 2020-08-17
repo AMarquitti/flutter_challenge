@@ -11,17 +11,20 @@ import 'package:challange_shared/model/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/auth/auth_page.dart';
-import '../../presentation/home/home.dart';
+import '../../presentation/home/home_page.dart';
 import '../../presentation/splash/splash.dart';
+import '../../presentation/user/profile_page.dart';
 
 class Routes {
   static const String splash = '/';
   static const String authPage = '/auth-page';
-  static const String home = '/Home';
+  static const String profilePage = '/profile-page';
+  static const String homePage = '/home-page';
   static const all = <String>{
     splash,
     authPage,
-    home,
+    profilePage,
+    homePage,
   };
 }
 
@@ -31,7 +34,8 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.splash, page: Splash),
     RouteDef(Routes.authPage, page: AuthPage),
-    RouteDef(Routes.home, page: Home),
+    RouteDef(Routes.profilePage, page: ProfilePage),
+    RouteDef(Routes.homePage, page: HomePage),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -48,12 +52,26 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    Home: (data) {
-      final args = data.getArgs<HomeArguments>(
-        orElse: () => HomeArguments(),
+    ProfilePage: (data) {
+      final args = data.getArgs<ProfilePageArguments>(
+        orElse: () => ProfilePageArguments(),
       );
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) => Home(
+        pageBuilder: (context, animation, secondaryAnimation) => ProfilePage(
+          key: args.key,
+          currentUser: args.currentUser,
+        ).wrappedRoute(context),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        transitionDuration: const Duration(milliseconds: 400),
+      );
+    },
+    HomePage: (data) {
+      final args = data.getArgs<HomePageArguments>(
+        orElse: () => HomePageArguments(),
+      );
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) => HomePage(
           key: args.key,
           currentUser: args.currentUser,
         ).wrappedRoute(context),
@@ -69,9 +87,16 @@ class Router extends RouterBase {
 /// Arguments holder classes
 /// *************************************************************************
 
-/// Home arguments holder class
-class HomeArguments {
+/// ProfilePage arguments holder class
+class ProfilePageArguments {
   final Key key;
   final UserModel currentUser;
-  HomeArguments({this.key, this.currentUser});
+  ProfilePageArguments({this.key, this.currentUser});
+}
+
+/// HomePage arguments holder class
+class HomePageArguments {
+  final Key key;
+  final UserModel currentUser;
+  HomePageArguments({this.key, this.currentUser});
 }
