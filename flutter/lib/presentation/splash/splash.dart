@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../config/injection/injection.dart';
 import '../../config/router/routing.gr.dart';
+import '../../core/res/color_palette.dart';
 
 class Splash extends HookWidget {
   @override
@@ -15,8 +15,7 @@ class Splash extends HookWidget {
         .pushAndRemoveUntil(Routes.authPage, (Route<dynamic> route) => false));
 
     return Scaffold(
-        backgroundColor:
-            globalConfig.themeLight ? Colors.white : Colors.black87,
+        backgroundColor: ColorPalette.primaryColor,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -30,13 +29,12 @@ class Splash extends HookWidget {
                       height: 200,
                       padding: const EdgeInsets.all(2.0),
                       decoration: const BoxDecoration(
-                        color: Colors.deepOrange,
+                        color: ColorPalette.colorAccent,
                         shape: BoxShape.circle,
                       ),
                       child: const CircleAvatar(
                         backgroundColor: Colors.white,
-                        backgroundImage:
-                             AssetImage('assets/img/splash.png'),
+                        backgroundImage: AssetImage('assets/img/splash.png'),
                       ),
                     ),
                   )),
@@ -52,7 +50,7 @@ class Splash extends HookWidget {
                             fontSize: 25,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.bold,
-                            color: Colors.deepOrange),
+                            color: ColorPalette.colorAccent),
                       ),
                     ),
                   )),

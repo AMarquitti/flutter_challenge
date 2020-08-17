@@ -1,16 +1,29 @@
-# Flutter Challenge [![Codemagic build status](https://api.codemagic.io/apps/5e5962a26d68360011243889/5e5962a26d68360011243888/status_badge.svg)](https://codemagic.io/apps/5e5962a26d68360011243889/5e5962a26d68360011243888/latest_build)
-Demo application -  Workout Challenge
+### Screenshots
+-----------------------
+![alt text](https://firebasestorage.googleapis.com/v0/b/workout-d9eaf.appspot.com/o/Screen%20Shot%202020-08-16%20at%2022.07.25.png?alt=media&token=3baa2d73-b558-4cfb-9d66-a1a7ea0cbda6)
 
-## Features
-  - Authentication simulation with https://randomuser.me/
-  - Dynamic language change
-  - Dynamic theme change between dark and light
-  - Obtain list of users from API https://randomuser.me/
-  - Search for users by name
-  - User filtering by different categories
-  - Integration of simple animations from https://rive.app/
+### XD base Mockup
+-----------------------
+![alt text](https://firebasestorage.googleapis.com/v0/b/workout-d9eaf.appspot.com/o/Screen%20Shot%202020-08-16%20at%2022.02.55.png?alt=media&token=f6eecbcd-82bb-4c8f-ad84-5fd594c8c0cf)
+
+### Flutter App Architecture
+-----------------------
+![alt text](https://firebasestorage.googleapis.com/v0/b/inbank-4c909.appspot.com/o/diagram.svg?alt=media&token=31702ef3-cf36-4574-afb4-2046e6b61118)
+### Branches structure
+-----------------------
+![alt text](https://wac-cdn.atlassian.com/dam/jcr:61ccc620-5249-4338-be66-94d563f2843c/05%20(2).svg?cdnVersion=1028)
+
+### Folder structure
+---------------------
+
+###### application_name/
+######   aqueduct/
+######   flutter/
+######   angular/
+######   shared/
 
 ### Tech
+---------------------
 * [states_rebuilder] - A Flutter state management combined with dependency injection solution that allows a 100% separation of User Interface (UI) representation from your logic classes
 * [Injectable] - API REST consumption differentiated by DEV and PROD environments dynamically
 * [json_serializable ] -Itegrated into data models
@@ -18,16 +31,3 @@ Demo application -  Workout Challenge
 * [flutter_i18n] - i18n process in Flutter
 * [auto_route] - A route generation library
 * [dio] - A powerful Http client for Dart
-* [flutter_dotenv] - Load configuration at runtime from a .env
-* [Git Flow]
-
-# The Idea:
-Tips: Fitness Company - Search Profiles
-The application idea is find motivational competitors that help you to improve your training, comparing your fitness activity with other persons that you added to follow their progress.
-Also you be able to filter for different categories, for the demo are only two users activities: Runners and Aerobic Workout with their respective metrics. The search is dynamic and depend on the current activity selected in the main filter.
-
-# The UI:
-The UI is simple but dynamic allowing to the final user a fluence and animated experience, but also limited in design because the timeline of a demo.
-
-![alt text](https://firebasestorage.googleapis.com/v0/b/cfv-proyect.appspot.com/o/extras%2FtempFileForShare_20200304-185422.jpg?alt=media&token=4acbb989-6eec-42a3-89b9-4519363e23c9)
-![alt text](https://firebasestorage.googleapis.com/v0/b/cfv-proyect.appspot.com/o/extras%2FtempFileForShare_20200304-184436.jpg?alt=media&token=5c8508f1-8bc3-4f9f-b02f-a59117d9119b)

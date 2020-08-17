@@ -15,27 +15,27 @@ class AuthRepository {
   AuthRepository(this._api);
   final Api _api;
 
-  Future<Either<UserModel, Exception>> authUser(
+  Future<Either<Exception, UserModel>> authUser(
       {@required String username, @required String password}) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       if (username.isEmpty || password.isEmpty) {
-        return right(CustomException(msg: 'Error'));
+        return left(CustomException(msg: 'Error'));
       }
 
       final Response<dynamic> response = await _api.client.get(
           '?results=1&inc=gender,name,picture,email,phone,dob,cell&nat=us');
 
-      if (response.data == null) return right(CustomException(msg: 'Error'));
+      if (response.data == null) return left(CustomException(msg: 'Error'));
 
-      final UserModel authUser =
-          UserModel.fromMap(response.data['results'][0]);
+      final UserModel authUser = UserModel.fromMap(response.data['results'][0]);
       prefs.setString('authUser', json.encode(authUser));
+      prefs.setString('token', 'somerandomtoken');
 
-      return left(authUser);
+      return right(authUser);
     } on DioError catch (_) {
-      return right(CustomException(msg: 'Server Error'));
+      return left(CustomException(msg: 'Server Error'));
     }
   }
 }
