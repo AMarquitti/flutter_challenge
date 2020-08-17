@@ -51,7 +51,7 @@ class Layout extends StatelessWidget {
     return StateBuilder<GlobalConfig>(
         observe: () => globalConfig,
         builder: (_, __) => Scaffold(
-              drawer: drawer ?  HomeDrawer() : null,
+              drawer: drawer ? HomeDrawer() : null,
               bottomNavigationBar: bottomNavigationBar,
               backgroundColor: globalConfig.state.themeLight
                   ? Colors.white
@@ -69,47 +69,34 @@ class Layout extends StatelessWidget {
 
   Widget buildHorizontalLayout(BuildContext context) {
     return Scaffold(
-      backgroundColor: inverse ? ColorPalette.primaryColor : Colors.white,
+      backgroundColor: backgroundColor,
+      drawer: drawer ? HomeDrawer() : null,
       body: SafeArea(
           child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
             Flexible(
-                flex: 6,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Hero(
-                          tag: 'logo',
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 130,
-                            height: 56,
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/img/grey-bg.jpg'))),
-                          ),
+                flex: 3,
+                child: Container(
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/img/web-bg.jpg'))),
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          color:Colors.black87.withOpacity(0.7)
                         ),
-                      ),
-                      Txt(
-                        'Te hacemos la vida más fácil.',
-                        style: TxtStyle()
-                          ..alignment.center()
-                          ..textColor(ColorPalette.primaryColor)
-                          ..padding(all: 0),
-                      ),
-                    ],
-                  ),
-                )),
+                        title,
+                        subtitle,
+                        rowTopLeftRigth(),
+                      ],
+                    ))),
             Flexible(
                 flex: 3,
                 child: Parent(
                     style: ParentStyle()
-                      ..borderRadius(topLeft: 30, bottomLeft: 30)
                       ..boxShadow(color: Colors.grey)
                       ..background.color(
                           inverse ? Colors.white : ColorPalette.primaryColor)
