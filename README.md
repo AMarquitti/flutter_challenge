@@ -1,3 +1,11 @@
+### Screenshots
+-----------------------
+![alt text](https://firebasestorage.googleapis.com/v0/b/workout-d9eaf.appspot.com/o/Screen%20Shot%202020-08-16%20at%2022.07.25.png?alt=media&token=3baa2d73-b558-4cfb-9d66-a1a7ea0cbda6)
+
+### XD base Mockup
+-----------------------
+![alt text](https://firebasestorage.googleapis.com/v0/b/workout-d9eaf.appspot.com/o/Screen%20Shot%202020-08-16%20at%2022.02.55.png?alt=media&token=f6eecbcd-82bb-4c8f-ad84-5fd594c8c0cf)
+
 ### Flutter App Architecture
 -----------------------
 ![alt text](https://firebasestorage.googleapis.com/v0/b/inbank-4c909.appspot.com/o/diagram.svg?alt=media&token=31702ef3-cf36-4574-afb4-2046e6b61118)
