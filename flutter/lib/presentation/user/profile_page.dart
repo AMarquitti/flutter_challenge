@@ -41,6 +41,7 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
     return WillPopScope(
         onWillPop: _onWillPop,
         child: Layout(
+            backgroundColor: Colors.white,
             widgetTopLeft: GestureDetector(
                 onTap: () {
                   Navigator.of(context).pop(false);

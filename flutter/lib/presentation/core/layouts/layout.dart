@@ -1,5 +1,7 @@
+import 'package:challenge/config/global_config.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:states_rebuilder/states_rebuilder.dart';
 
 import '../../../core/res/color_palette.dart';
 import '../../home/widgets/home_drawer.dart';
@@ -45,19 +47,24 @@ class Layout extends StatelessWidget {
   }
 
   Widget buildVerticalLayout(BuildContext context) {
-    return Scaffold(
-      drawer: drawer ? const HomeDrawer() : null,
-      bottomNavigationBar: bottomNavigationBar,
-      backgroundColor: backgroundColor ?? Colors.white,
-      body: Stack(
-        children: <Widget>[
-          child,
-          title,
-          subtitle,
-          rowTopLeftRigth(),
-        ],
-      ),
-    );
+    final ReactiveModel<GlobalConfig> globalConfig = RM.get<GlobalConfig>();
+    return StateBuilder<GlobalConfig>(
+        observe: () => globalConfig,
+        builder: (_, __) => Scaffold(
+              drawer: drawer ?  HomeDrawer() : null,
+              bottomNavigationBar: bottomNavigationBar,
+              backgroundColor: globalConfig.state.themeLight
+                  ? Colors.white
+                  : backgroundColor,
+              body: Stack(
+                children: <Widget>[
+                  child,
+                  title,
+                  subtitle,
+                  rowTopLeftRigth(),
+                ],
+              ),
+            ));
   }
 
   Widget buildHorizontalLayout(BuildContext context) {

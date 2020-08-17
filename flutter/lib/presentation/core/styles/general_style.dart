@@ -6,6 +6,7 @@ import '../../../core/res/color_palette.dart';
 final TxtStyle titleWhite = TxtStyle()
   ..fontFamily('raleway-bold')
   ..textColor(Colors.white)
+  ..textShadow(color: Colors.grey, offset: const Offset(0,1), blur: 5)
   ..fontSize(48);
 
 final TxtStyle titleGreen = TxtStyle()

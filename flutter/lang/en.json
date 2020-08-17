@@ -18,7 +18,7 @@
   },
   "menu": {
     "exit": "Logout",
-    "changeTheme": "Dark theme"
+    "changeTheme": "Light theme"
   },
   "tips": {
     "userCard": "Not Implemented: Try with the user profile"

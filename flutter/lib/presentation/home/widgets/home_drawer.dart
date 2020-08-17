@@ -3,30 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:states_rebuilder/states_rebuilder.dart';
 
-import '../../../config/injection/injection.dart';
+import '../../../config/global_config.dart';
 import '../../../config/router/routing.gr.dart';
+import '../../../core/res/color_palette.dart';
 import '../../core/widgets/lang_changer.dart';
 
 class HomeDrawer extends HookWidget {
-  const HomeDrawer();
-
+  HomeDrawer();
+  final ReactiveModel<GlobalConfig> globalConfig = RM.get<GlobalConfig>();
   @override
   Widget build(BuildContext context) {
     final TextStyle textStyle = TextStyle(
-        color: globalConfig.themeLight ? Colors.black87 : Colors.white);
+        color: globalConfig.state.themeLight ? Colors.black87 : Colors.white);
     final ValueNotifier<String> _langAnimation =
-        useState(globalConfig.lang == 'es' ? 'reverse' : 'forward');
-    final ValueNotifier<bool> _themeLight = useState(globalConfig.themeLight);
+        useState(globalConfig.state.lang == 'es' ? 'reverse' : 'forward');
+
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
-            color: globalConfig.themeLight ? Colors.white : Colors.black87),
+            color:
+                globalConfig.state.themeLight ? Colors.white : Colors.black87),
         child: ListView(
           children: <Widget>[
             DrawerHeader(
                 decoration: BoxDecoration(
-                    color: globalConfig.themeLight
+                    color: globalConfig.state.themeLight
                         ? Colors.white
                         : Colors.black87),
                 child: Center(
@@ -37,7 +40,7 @@ class HomeDrawer extends HookWidget {
                       'WC',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepOrange,
+                        color: ColorPalette.colorAccent,
                         fontSize: 70,
                       ),
                     ),
@@ -54,24 +57,23 @@ class HomeDrawer extends HookWidget {
                     style: textStyle,
                   ),
                   Switch(
-                    value: !_themeLight.value,
+                    value: globalConfig.state.themeLight,
                     onChanged: (bool value) {
-                      _themeLight.value = !value;
-                      globalConfig.setGlobalTheme(
-                          themeValue: _themeLight.value);
+                      globalConfig
+                          .setState((GlobalConfig s) => s.themeLight = value);
                     },
-                    activeTrackColor: Colors.deepOrange,
-                    activeColor: Colors.deepOrange,
+                    activeTrackColor: ColorPalette.colorAccent,
+                    activeColor: ColorPalette.colorAccent,
                   ),
                 ],
               ),
               leading: Icon(
                 Icons.palette,
-                color: globalConfig.themeLight ? Colors.black87 : Colors.white,
+                color: globalConfig.state.themeLight
+                    ? Colors.black87
+                    : Colors.white,
               ),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed('/onboarding');
-              },
+              onTap: () {},
             ),
             const Divider(),
             ListTile(
@@ -85,7 +87,9 @@ class HomeDrawer extends HookWidget {
               ),
               leading: Icon(
                 Icons.exit_to_app,
-                color: globalConfig.themeLight ? Colors.black87 : Colors.white,
+                color: globalConfig.state.themeLight
+                    ? Colors.black87
+                    : Colors.white,
               ),
               onTap: () {
                 ExtendedNavigator.root.pushAndRemoveUntil(
