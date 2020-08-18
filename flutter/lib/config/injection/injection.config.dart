@@ -39,9 +39,11 @@ GetIt $initGetIt(
   gh.lazySingleton<AuthState>(() => AuthState(get<AuthRepository>()));
   gh.factory<EnvironmentConfig>(() => EnvironmentDev(), registerFor: {_dev});
   gh.factory<EnvironmentConfig>(() => EnvironmentProd(), registerFor: {_prod});
-  gh.lazySingleton<GlobalConfig>(() => GlobalConfig());
   gh.lazySingleton<HomeRepository>(() => HomeRepository(get<Api>()));
   gh.lazySingleton<HomeState>(() => HomeState(get<HomeRepository>()));
   gh.lazySingleton<UserRepository>(() => UserRepository(get<Api>()));
+
+  // Eager singletons must be registered in the right order
+  gh.singleton<GlobalConfig>(GlobalConfig());
   return get;
 }
