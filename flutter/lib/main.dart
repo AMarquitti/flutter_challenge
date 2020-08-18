@@ -11,28 +11,36 @@ import 'config/router/routing.gr.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjections();
-  runApp(ChallengeApp());
+  final GlobalConfig globalConfig = getIt<GlobalConfig>();
+  await globalConfig.init();
+  runApp(ChallengeApp(globalConfig));
 }
 
 class ChallengeApp extends StatelessWidget {
+  const ChallengeApp(this.globalConfig, {Key key}) : super(key: key);
+  final GlobalConfig globalConfig;
+
   @override
   Widget build(BuildContext context) {
+    final Router router = Router();
     return Injector(
         inject: <Injectable>[Inject<GlobalConfig>(() => globalConfig)],
-        builder: (_) => MaterialApp(
-      theme: globalConfig.themeData,
-      localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-        globalConfig.flutterI18nDelegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      builder: ExtendedNavigator<Router>(
-        router: globalConfig.router,
-        guards: <RouteGuard>[AuthGuard()],
-      ),
-      initialRoute: Routes.splash,
-      onGenerateRoute: globalConfig.router.onGenerateRoute,
-    ))
-        ;
+        builder: (_) => StateBuilder<GlobalConfig>(
+            observe: () => RM.get<GlobalConfig>(),
+            watch: (ReactiveModel<GlobalConfig> config) => config.state.lang,
+            builder: (_, ReactiveModel<GlobalConfig> config) => MaterialApp(
+                  theme: config.state.themeData,
+                  localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+                    config.state.flutterI18nDelegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  builder: ExtendedNavigator<Router>(
+                    router: router,
+                    guards: <RouteGuard>[AuthGuard()],
+                  ),
+                  initialRoute: Routes.splash,
+                  onGenerateRoute: router.onGenerateRoute,
+                )));
   }
 }

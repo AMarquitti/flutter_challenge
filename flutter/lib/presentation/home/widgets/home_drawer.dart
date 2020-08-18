@@ -17,8 +17,6 @@ class HomeDrawer extends HookWidget {
   Widget build(BuildContext context) {
     final TextStyle textStyle = TextStyle(
         color: globalConfig.state.themeLight ? Colors.black87 : Colors.white);
-    final ValueNotifier<String> _langAnimation =
-        useState(globalConfig.state.lang == 'es' ? 'reverse' : 'forward');
 
     return Drawer(
       child: Container(
@@ -45,7 +43,7 @@ class HomeDrawer extends HookWidget {
                       ),
                     ),
                   ),
-                  getLangChanger(context, _langAnimation)
+                  getLangChanger()
                 ]))),
             const Divider(),
             ListTile(

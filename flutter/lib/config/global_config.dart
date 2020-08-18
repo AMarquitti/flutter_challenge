@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/utils/colors.dart';
 import 'router/routing.gr.dart';
 
-@lazySingleton
+@singleton
 class GlobalConfig {
   SharedPreferences prefs;
   String lang = 'en';
@@ -32,6 +32,10 @@ class GlobalConfig {
   Future<void> setGlobalLang(String selectedLang) async {
     lang = selectedLang;
     prefs.setString('lang', selectedLang);
+    flutterI18nDelegate = FlutterI18nDelegate(
+      translationLoader: FileTranslationLoader(
+          basePath: 'lang', forcedLocale: Locale(selectedLang)),
+    );
   }
 
   Future<void> setGlobalTheme({@required bool themeValue}) async {

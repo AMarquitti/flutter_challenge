@@ -18,8 +18,6 @@ class AuthRepository {
   Future<Either<Exception, UserModel>> authUser(
       {@required String username, @required String password}) async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-
       if (username.isEmpty || password.isEmpty) {
         return left(CustomException(msg: 'Error'));
       }
@@ -30,6 +28,8 @@ class AuthRepository {
       if (response.data == null) return left(CustomException(msg: 'Error'));
 
       final UserModel authUser = UserModel.fromMap(response.data['results'][0]);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+
       prefs.setString('authUser', json.encode(authUser));
       prefs.setString('token', 'somerandomtoken');
 

@@ -112,20 +112,6 @@ class Layout extends StatelessWidget {
     );
   }
 
-  Widget background(Size mediaQuery) {
-    return Container(
-      height: mediaQuery.height / 2,
-      width: mediaQuery.width,
-      decoration: BoxDecoration(
-        color: inverse ? Colors.white : ColorPalette.primaryColor,
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(80.0),
-            bottomRight: Radius.circular(80.0)),
-      ),
-      // ),
-    );
-  }
-
   Widget rowTopLeftRigth() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
