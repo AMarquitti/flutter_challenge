@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:challange_shared/model/user_model.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../application/auth/auth_state.dart';
+import '../../../config/global_config.dart';
+import '../../../config/injection/injection.dart';
 import '../../../config/router/routing.gr.dart';
 import '../../../core/res/color_palette.dart';
 import '../styles/general_style.dart';
@@ -21,7 +25,8 @@ class AppBottomBar extends StatelessWidget {
             topRight: Radius.circular(12),
             topLeft: Radius.circular(12),
           ),
-          child: AppBottomBarContent(currentIndex: currentIndex)),
+          child: AppBottomBarContent(
+              context: context, currentIndex: currentIndex)),
     );
   }
 }
@@ -29,10 +34,10 @@ class AppBottomBar extends StatelessWidget {
 class AppBottomBarContent extends BottomNavigationBar {
   static const int home = 0;
   static const int profile = 1;
+  static UserModel currentUser = getIt<AuthState>().authUser;
 
-  AppBottomBarContent({
-    int currentIndex = 0,
-  }) : super(
+  AppBottomBarContent({int currentIndex = 0, BuildContext context})
+      : super(
           type: BottomNavigationBarType.fixed,
           fixedColor: ColorPalette.primaryColor,
           unselectedItemColor: ColorPalette.primaryColor,
@@ -43,24 +48,25 @@ class AppBottomBarContent extends BottomNavigationBar {
           elevation: 0,
           items: <BottomNavigationBarItem>[
             AppBottomNavigationBarItem(
-              text: 'Home',
+              text: '',
               active: AppBottomBarContent.home == currentIndex,
-              iconName: Icons.home,
+              iconImage: 'menu_icon.png',
             ),
             AppBottomNavigationBarItem(
-              text: 'Profile',
+              text: '',
               active: AppBottomBarContent.profile == currentIndex,
-              iconName: Icons.person,
+              iconImage: 'user_icon.png',
             ),
           ],
           onTap: (int index) {
-            if (index == currentIndex) return false;
             switch (index) {
               case home:
-                ExtendedNavigator.root.pushAndRemoveUntil(
-                    Routes.homePage, (Route<dynamic> route) => false);
+                Scaffold.of(context).openDrawer();
                 break;
               case profile:
+                ExtendedNavigator.root.pushAndRemoveUntil(
+                    Routes.profilePage, (Route<dynamic> route) => true,
+                    arguments: ProfilePageArguments(currentUser: currentUser));
                 break;
             }
           },
@@ -68,12 +74,14 @@ class AppBottomBarContent extends BottomNavigationBar {
 }
 
 class AppBottomNavigationBarItem extends BottomNavigationBarItem {
+  final GlobalConfig config = getIt<GlobalConfig>();
   AppBottomNavigationBarItem({
-    @required this.iconName,
+    @required this.iconImage,
     @required this.text,
     @required this.active,
   }) : super(
-          icon: Icon(iconName, color: ColorPalette.colorAccent, size: 22),
+          icon: ImageIcon(AssetImage('assets/img/icons/$iconImage'),
+              color: ColorPalette.colorAccent, size: 22),
           title: Container(
             margin: const EdgeInsets.only(top: 2),
             child: Txt(
@@ -83,7 +91,7 @@ class AppBottomNavigationBarItem extends BottomNavigationBarItem {
           ),
         );
 
-  final IconData iconName;
+  final String iconImage;
   final String text;
   final bool active;
 }

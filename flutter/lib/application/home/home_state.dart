@@ -1,58 +1,52 @@
 import 'package:challange_shared/model/activity_model.dart';
 import 'package:challange_shared/model/user_model.dart';
+import 'package:challenge/application/auth/auth_state.dart';
+import 'package:challenge/config/injection/injection.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../infrastructure/home/home_local_repository.dart';
 import '../../infrastructure/home/home_repository.dart';
 
-@lazySingleton
+@singleton
 class HomeState {
-  HomeState(this._homeRepository);
+  HomeState(this._homeRepository, this._homeLocalRepository);
 
   final HomeRepository _homeRepository;
 
-  UserModel currentUser;
+  final HomeLocalRepository _homeLocalRepository;
+
+  UserModel  get currentUser =>  getIt<AuthState>().authUser;
+  
   List<UserModel> activeUsers;
 
-  static final List<ActivityModel> activityList = <ActivityModel>[
-    ActivityModel(
-        workouts: 8,
-        title: 'activitiesOne.title',
-        subtitle: 'activitiesOne.subtitle',
-        image: 'athlete.png'),
-    ActivityModel(
-        workouts: 8,
-        title: 'activitiesTwo.title',
-        subtitle: 'activitiesTwo.subtitle',
-        image: 'athlete2.png'),
-    ActivityModel(
-        workouts: 8,
-        title: 'activitiesThree.title',
-        subtitle: 'activitiesThree.subtitle',
-        image: 'athlete3.png'),
-    ActivityModel(
-        workouts: 8,
-        title: 'activitiesOne.title',
-        subtitle: 'activitiesOne.subtitle',
-        image: 'athlete4.png'),
-  ];
+  List<ActivityModel> activityList;
 
-  
+  @factoryMethod
+  static Future<HomeState> load() async {
+    final HomeState homeState =
+        HomeState(getIt<HomeRepository>(), getIt<HomeLocalRepository>());
+    await homeState.init();
+    return homeState;
+  }
 
-  static List<ActivityModel> getActivityList() {
+  Future<void> init() async {
+    activityList = await fetchActivityList();
+  }
+
+  Future<List<ActivityModel>> fetchActivityList() async {
+    final List<ActivityModel> activityList =
+        await _homeLocalRepository.getActivityList();
     activityList.shuffle();
     return activityList;
   }
 
   Future<void> fetchActiveUsers({int activity = 0}) async {
-    final Either<List<UserModel>, Exception> result =
+    final Either<Exception, List<UserModel>> result =
         await _homeRepository.fetchActiveUsers(activity: activity);
-    result.fold(
-      (List<UserModel> userList) {
-        activeUsers = userList;
-        return true;
-      },
-      (Exception error) => throw error,
-    );
+    result.fold((Exception error) => throw error, (List<UserModel> userList) {
+      activeUsers = userList;
+      return true;
+    });
   }
 }

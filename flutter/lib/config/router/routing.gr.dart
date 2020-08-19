@@ -71,10 +71,8 @@ class Router extends RouterBase {
         orElse: () => HomePageArguments(),
       );
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) => HomePage(
-          key: args.key,
-          currentUser: args.currentUser,
-        ).wrappedRoute(context),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            HomePage(key: args.key).wrappedRoute(context),
         settings: data,
         transitionsBuilder: TransitionsBuilders.fadeIn,
         transitionDuration: const Duration(milliseconds: 400),
@@ -97,6 +95,5 @@ class ProfilePageArguments {
 /// HomePage arguments holder class
 class HomePageArguments {
   final Key key;
-  final UserModel currentUser;
-  HomePageArguments({this.key, this.currentUser});
+  HomePageArguments({this.key});
 }

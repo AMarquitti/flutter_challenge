@@ -1,20 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:challange_shared/model/user_model.dart';
-import 'package:challenge/presentation/core/styles/general_style.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
 
-import '../../../application/home/home_state.dart';
 import '../../../core/res/color_palette.dart';
+import '../../core/styles/general_style.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({Key key}) : super(key: key);
+  const ProfileHeader({Key key, this.currentUser}) : super(key: key);
+  final UserModel currentUser;
 
   @override
   Widget build(BuildContext context) {
     final Size _screen = MediaQuery.of(context).size;
-    final UserModel user = RM.get<HomeState>().state.currentUser;
     return Container(
       height: _screen.height * 0.4,
       color: ColorPalette.primaryColor,
@@ -29,7 +27,7 @@ class ProfileHeader extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             const SizedBox(height: 40),
+            const SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -56,7 +54,7 @@ class ProfileHeader extends StatelessWidget {
             ),
             const SizedBox(height: 25),
             Txt(
-              '${user.name.last} ${user.name.first}',
+              '${currentUser.name.last} ${currentUser.name.first}',
               style: userNameStyle,
             ),
             Txt(
@@ -73,7 +71,6 @@ class ProfileHeader extends StatelessWidget {
   }
 
   Center buildCenterLogo() {
-    final UserModel user = RM.get<HomeState>().state.currentUser;
     return Center(
       child: Container(
         width: 150,
@@ -85,7 +82,8 @@ class ProfileHeader extends StatelessWidget {
         ),
         child: CircleAvatar(
           foregroundColor: Colors.white,
-          backgroundImage: CachedNetworkImageProvider(user.picture.large),
+          backgroundImage:
+              CachedNetworkImageProvider(currentUser.picture.large),
         ),
       ),
     );
