@@ -22,10 +22,9 @@ class GlobalConfig {
     themeLight = prefs.getBool('theme') ?? themeLight;
 
     //app init
-    router = Router();
     flutterI18nDelegate = FlutterI18nDelegate(
       translationLoader: FileTranslationLoader(
-          basePath: 'lang', forcedLocale: const Locale('en')),
+          basePath: 'lang', forcedLocale:  Locale(lang)),
     );
   }
 

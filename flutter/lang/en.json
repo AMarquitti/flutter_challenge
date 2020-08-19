@@ -2,7 +2,12 @@
   "login": {
     "loginButton": "Login",
     "username": "Username",
-    "password": "Password"
+    "password": "Password",
+    "errors":{
+      "invalidPassword":"Password is required",
+      "invalidUsername":"Username is required",
+      "shortPassword":"Password too short"
+    }
   },
   "splash": {
     "title": "Find your new challenge!"
