@@ -17,13 +17,14 @@ import '../user/widgets/user_card.dart';
 import 'widgets/home_activity_card.dart';
 
 class HomePage extends HookWidget implements AutoRouteWrapper {
-  HomePage({Key key, this.currentUser}) : super(key: key);
-  final UserModel currentUser;
+  HomePage({Key key}) : super(key: key);
+
   final ReactiveModel<double> titlePosition = RM.create(0);
 
   @override
   Widget build(BuildContext context) {
-    final UserModel user = RM.get<HomeState>().state.currentUser;
+    final ReactiveModel<HomeState> _homeState = RM.get<HomeState>();
+    final UserModel currentUser = _homeState.state.currentUser;
     final ScrollController _scrollController = useScrollController();
 
     _scrollController.addListener(() {
@@ -32,7 +33,7 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
     return Layout(
         drawer: true,
         widgetTopRight: UserCard(
-          user: user,
+          user: currentUser,
           radius: 24,
         ),
         backgroundColor: ColorPalette.primaryColor,
@@ -82,13 +83,13 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
                             style: subtitleStyle.clone()
                               ..textColor(Colors.white)),
                         const SizedBox(height: 10),
-                        buildListView(HomeState.getActivityList()),
+                        buildListView(_homeState.state.activityList),
                         const SizedBox(height: 20),
                         Txt(FlutterI18n.translate(context, 'subtitles.news'),
                             style: subtitleStyle.clone()
                               ..textColor(Colors.white)),
                         const SizedBox(height: 10),
-                        buildListView(HomeState.getActivityList()),
+                        buildListView(_homeState.state.activityList),
                       ],
                     ))
               ],
@@ -114,10 +115,8 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    final HomeState _homeState = getIt<HomeState>();
-    _homeState.currentUser = currentUser;
     return Injector(
-        inject: <Injectable>[Inject<HomeState>(() => _homeState)],
-        builder: (_) => HomePage(currentUser: currentUser));
+        inject: <Injectable>[Inject<HomeState>(() =>  getIt<HomeState>())],
+        builder: (_) => HomePage());
   }
 }

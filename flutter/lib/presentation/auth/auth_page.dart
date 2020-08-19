@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:challange_shared/model/user_model.dart';
-import 'package:challenge/domain/auth/failures/auth_value_object_failure.dart';
-import '../core/widgets/text_field.dart';
 import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +11,13 @@ import '../../application/auth/auth_state.dart';
 import '../../config/injection/injection.dart';
 import '../../config/router/routing.gr.dart';
 import '../../core/res/color_palette.dart';
+import '../../domain/auth/failures/auth_value_object_failure.dart';
 import '../../domain/auth/value_objects/auth_value_object.dart';
 import '../../domain/core/failures/value_object_failure.dart';
 import '../core/layouts/layout.dart';
 import '../core/styles/general_style.dart';
 import '../core/widgets/lang_changer.dart';
+import '../core/widgets/text_field.dart';
 
 class AuthPage extends StatelessWidget implements AutoRouteWrapper {
   @override
@@ -118,7 +118,7 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
             observe: () => _authState,
             builder: (_, __) => Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: txtField(
+                child: TxtField(
                   hint: FlutterI18n.translate(context, 'login.username'),
                   icon: const Icon(
                     Icons.lock,
@@ -145,7 +145,7 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
             observe: () => _authState,
             builder: (_, __) => Stack(
               children: <Widget>[
-                txtField(
+                TxtField(
                   obscureText: !_authState.state.showPassword,
                   hint: FlutterI18n.translate(context, 'login.password'),
                   icon: const Icon(
@@ -244,8 +244,7 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
             (ValueObjectFailure l) => Scaffold.of(context)
                 .showSnackBar(const SnackBar(content: Text('error'))),
             (UserModel user) => ExtendedNavigator.root.pushAndRemoveUntil(
-                Routes.homePage, (Route<dynamic> route) => false,
-                arguments: HomePageArguments(currentUser: user)))));
+                Routes.homePage, (Route<dynamic> route) => false))));
   }
 
   @override

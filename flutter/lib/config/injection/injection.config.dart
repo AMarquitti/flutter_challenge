@@ -16,6 +16,7 @@ import '../env/environment_config.dart';
 import '../env/environment_dev.dart';
 import '../env/environment_prod.dart';
 import '../global_config.dart';
+import '../../infrastructure/home/home_local_repository.dart';
 import '../../infrastructure/home/home_repository.dart';
 import '../../application/home/home_state.dart';
 import '../../infrastructure/user/user_repository.dart';
@@ -39,11 +40,12 @@ GetIt $initGetIt(
   gh.lazySingleton<AuthState>(() => AuthState(get<AuthRepository>()));
   gh.factory<EnvironmentConfig>(() => EnvironmentDev(), registerFor: {_dev});
   gh.factory<EnvironmentConfig>(() => EnvironmentProd(), registerFor: {_prod});
+  gh.lazySingleton<HomeLocalRepository>(() => HomeLocalRepository());
   gh.lazySingleton<HomeRepository>(() => HomeRepository(get<Api>()));
-  gh.lazySingleton<HomeState>(() => HomeState(get<HomeRepository>()));
   gh.lazySingleton<UserRepository>(() => UserRepository(get<Api>()));
 
   // Eager singletons must be registered in the right order
   gh.singleton<GlobalConfig>(GlobalConfig());
+  gh.singletonAsync<HomeState>(() => HomeState.load());
   return get;
 }
