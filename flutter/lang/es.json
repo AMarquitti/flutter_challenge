@@ -2,7 +2,12 @@
   "login": {
     "loginButton": "Ingresar",
     "username": "Usuario",
-    "password": "Contraseña"
+    "password": "Contraseña",
+    "errors":{
+      "invalidPassword":"Contraseña requerida",
+      "invalidUsername":"Usuario requerido",
+      "shortPassword":"Contraseña corta"
+    }
   },
   "splash": {
     "title": "Encuentra tu nuevo desafio!"
