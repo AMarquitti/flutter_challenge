@@ -56,7 +56,7 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
             child: SingleChildScrollView(
                 child: Column(
               children: <Widget>[
-                const ProfileHeader(),
+                ProfileHeader(currentUser: currentUser),
                 Container(
                   padding: const EdgeInsets.only(left: 23),
                   child: ProfileBody(),
@@ -67,10 +67,8 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    final HomeState _homeState = getIt<HomeState>();
-    _homeState.currentUser = currentUser;
     return Injector(
-        inject: <Injectable>[Inject<HomeState>(() => _homeState)],
+        inject: <Injectable>[Inject<HomeState>(() => getIt<HomeState>())],
         builder: (_) => ProfilePage(currentUser: currentUser));
   }
 }

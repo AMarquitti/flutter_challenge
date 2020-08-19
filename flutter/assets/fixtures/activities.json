@@ -1,0 +1,26 @@
+[
+  {
+    "workouts": 8,
+    "title": "activitiesTwo.title",
+    "subtitle": "activitiesTwo.subtitle",
+    "image": "athlete2.png"
+  },
+  {
+    "workouts": 8,
+    "title": "activitiesOne.title",
+    "subtitle": "activitiesOne.subtitle",
+    "image": "athlete4.png"
+  },
+  {
+    "workouts": 8,
+    "title": "activitiesThree.title",
+    "subtitle": "activitiesThree.subtitle",
+    "image": "athlete3.png"
+  },
+  {
+    "workouts": 8,
+    "title": "activitiesOne.title",
+    "subtitle": "activitiesOne.subtitle",
+    "image": "athlete.png"
+  }
+]

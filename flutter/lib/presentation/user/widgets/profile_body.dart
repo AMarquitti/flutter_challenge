@@ -55,7 +55,7 @@ class ProfileBody extends HookWidget {
         Txt(FlutterI18n.translate(context, 'subtitles.favrites'),
             style: subtitleStyle),
         const SizedBox(height: 10),
-        buildListView(HomeState.getActivityList()),
+        buildListView(RM.get<HomeState>().state.activityList),
       ],
     );
   }
