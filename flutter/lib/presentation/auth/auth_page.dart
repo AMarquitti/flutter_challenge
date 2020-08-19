@@ -1,4 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:challange_shared/model/user_model.dart';
+import 'package:challenge/domain/auth/failures/auth_value_object_failure.dart';
+import '../core/widgets/text_field.dart';
+import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -9,6 +13,8 @@ import '../../application/auth/auth_state.dart';
 import '../../config/injection/injection.dart';
 import '../../config/router/routing.gr.dart';
 import '../../core/res/color_palette.dart';
+import '../../domain/auth/value_objects/auth_value_object.dart';
+import '../../domain/core/failures/value_object_failure.dart';
 import '../core/layouts/layout.dart';
 import '../core/styles/general_style.dart';
 import '../core/widgets/lang_changer.dart';
@@ -63,23 +69,27 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
 
   Widget buildRaisedButton() {
     final ReactiveModel<AuthState> _authState = RM.get<AuthState>();
-    return RaisedButton(
-      padding: const EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
-      onPressed: () => submitForm(),
-      color: ColorPalette.colorAccent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: StateBuilder<AuthState>(
-        observe: () => _authState,
-        builder: (BuildContext context, ReactiveModel<AuthState> state) {
-          final Widget loginButton = buildLoginLabel(context);
-          return state.whenConnectionState(
-              onIdle: () => loginButton,
-              onWaiting: () => buildCircularProgress(),
-              onData: (_) => loginButton,
-              onError: (_) => loginButton);
-        },
-      ),
-    );
+    return Builder(builder: (BuildContext context) {
+      return RaisedButton(
+        padding:
+            const EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
+        onPressed: () => submitForm(context),
+        color: ColorPalette.colorAccent,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: StateBuilder<AuthState>(
+          observe: () => _authState,
+          builder: (BuildContext context, ReactiveModel<AuthState> state) {
+            final Widget loginButton = buildLoginLabel(context);
+            return state.whenConnectionState(
+                onIdle: () => loginButton,
+                onWaiting: () => buildCircularProgress(),
+                onData: (_) => loginButton,
+                onError: (_) => loginButton);
+          },
+        ),
+      );
+    });
   }
 
   Center buildCenterLogo() {
@@ -104,22 +114,27 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
 
   Widget buildInputUsername() => Builder(builder: (BuildContext context) {
         final ReactiveModel<AuthState> _authState = RM.get<AuthState>();
-        return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: TextFormField(
-              onChanged: (String value) {
-                _authState.setState((AuthState s) => s.username = value);
-              },
-              initialValue: '',
-              style: const TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                  hintText: FlutterI18n.translate(context, 'login.username'),
-                  border: InputBorder.none,
+        return StateBuilder<AuthState>(
+            observe: () => _authState,
+            builder: (_, __) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: txtField(
+                  hint: FlutterI18n.translate(context, 'login.username'),
                   icon: const Icon(
-                    Icons.person,
+                    Icons.lock,
                     color: ColorPalette.primaryColor,
-                  )),
-            ));
+                  ),
+                  hasError: _authState.state.isSubmitted &&
+                      !_authState.state.username.isValid(),
+                  error: _authState.state.username.getError() is InvalidUsername
+                      ? FlutterI18n.translate(
+                          context, 'login.errors.invalidUsername')
+                      : '',
+                  onChanged: (String value) {
+                    _authState.setState(
+                        (AuthState s) => s.username = Username(value));
+                  },
+                )));
       });
 
   Widget buildInputPassword() => Builder(builder: (BuildContext context) {
@@ -130,20 +145,27 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
             observe: () => _authState,
             builder: (_, __) => Stack(
               children: <Widget>[
-                TextFormField(
+                txtField(
                   obscureText: !_authState.state.showPassword,
+                  hint: FlutterI18n.translate(context, 'login.password'),
+                  icon: const Icon(
+                    Icons.lock,
+                    color: ColorPalette.primaryColor,
+                  ),
+                  hasError: _authState.state.isSubmitted &&
+                      !_authState.state.password.isValid(),
+                  error: _authState.state.password
+                      .getError<AuthValueObjectFailure>()
+                      ?.maybeWhen(
+                          invalidPassword: () => FlutterI18n.translate(
+                              context, 'login.errors.invalidPassword'),
+                          shortPassword: () => FlutterI18n.translate(
+                              context, 'login.errors.shortPassword'),
+                          orElse: () => ''),
                   onChanged: (String value) {
-                    _authState.setState((AuthState s) => s.password = value);
+                    _authState.setState(
+                        (AuthState f) => f.password = Password(value));
                   },
-                  style: const TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      hintText:
-                          FlutterI18n.translate(context, 'login.password'),
-                      border: InputBorder.none,
-                      icon: const Icon(
-                        Icons.lock,
-                        color: ColorPalette.primaryColor,
-                      )),
                 ),
                 Align(
                     alignment: Alignment.centerRight,
@@ -173,7 +195,6 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 
-
   Container _buildLoginForm() {
     return Container(
       padding: const EdgeInsets.all(20.0),
@@ -193,9 +214,7 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
                 children: <Widget>[
                   const SizedBox(height: 50.0),
                   buildInputUsername(),
-                  buildDivider(),
                   buildInputPassword(),
-                  buildDivider(),
                   const SizedBox(height: 10.0),
                 ],
               ),
@@ -218,20 +237,15 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
         style: const TextStyle(color: Colors.black, fontSize: 16));
   }
 
-  void submitForm() {
+  void submitForm(BuildContext context) {
     final ReactiveModel<AuthState> authState = RM.get<AuthState>();
-    authState.setState((AuthState state) => state.loginUser(),
-        onError: (BuildContext context, dynamic error) =>
-            Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text('$error'),
-              ),
-            ),
-        onData: (_, AuthState state) {
-          ExtendedNavigator.root.pushAndRemoveUntil(
-              Routes.homePage, (Route<dynamic> route) => false,
-              arguments: HomePageArguments(currentUser: state.authUser));
-        });
+    authState.setState((AuthState state) => state.loginUser().then(
+        (Either<ValueObjectFailure, UserModel> result) => result.fold(
+            (ValueObjectFailure l) => Scaffold.of(context)
+                .showSnackBar(const SnackBar(content: Text('error'))),
+            (UserModel user) => ExtendedNavigator.root.pushAndRemoveUntil(
+                Routes.homePage, (Route<dynamic> route) => false,
+                arguments: HomePageArguments(currentUser: user)))));
   }
 
   @override
