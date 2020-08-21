@@ -27,9 +27,41 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
     final UserModel currentUser = _homeState.state.currentUser;
     final ScrollController _scrollController = useScrollController();
 
+    //infinite scroll simulation
+    final ScrollController _listScrollController = useScrollController();
+    final ScrollController _listScrollControllerSecond = useScrollController();
+
     _scrollController.addListener(() {
       titlePosition.setState((double s) => s = _scrollController.offset);
     });
+
+    Widget buildListView(ScrollController scrollController) =>
+        StateBuilder<HomeState>(
+          afterInitialBuild: (_, ReactiveModel<HomeState> model) {
+            scrollController
+                .addListener(() => _scrollListener(scrollController));
+          },
+          observe: () => _homeState,
+          builder: (BuildContext context, ReactiveModel<dynamic> model) {
+            return Container(
+              color: Colors.transparent,
+              height: 200,
+              child: ListView(
+                controller: scrollController,
+                scrollDirection: Axis.horizontal,
+                children: List<Widget>.generate(model.state.activityList.length,
+                    (int index) {
+                  return Center(
+                    child: HomeActivityCard(
+                      activity: model.state.activityList[index],
+                    ),
+                  );
+                }),
+              ),
+            );
+          },
+        );
+
     return Layout(
         drawer: true,
         widgetTopRight: UserCard(
@@ -83,13 +115,13 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
                             style: subtitleStyle.clone()
                               ..textColor(Colors.white)),
                         const SizedBox(height: 10),
-                        buildListView(_homeState.state.activityList),
+                        buildListView(_listScrollController),
                         const SizedBox(height: 20),
                         Txt(FlutterI18n.translate(context, 'subtitles.news'),
                             style: subtitleStyle.clone()
                               ..textColor(Colors.white)),
                         const SizedBox(height: 10),
-                        buildListView(_homeState.state.activityList),
+                        buildListView(_listScrollControllerSecond),
                       ],
                     ))
               ],
@@ -98,25 +130,20 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
         ));
   }
 
-  Widget buildListView(List<ActivityModel> activityList) => Container(
-        color: Colors.transparent,
-        height: 200,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: List<Widget>.generate(activityList.length, (int index) {
-            return Center(
-              child: HomeActivityCard(
-                activity: activityList[index],
-              ),
-            );
-          }),
-        ),
-      );
+  void _scrollListener(ScrollController scrollController) {
+    final ReactiveModel<HomeState> _homeState = RM.get<HomeState>();
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      _homeState.setState((HomeState s) => s
+          .fetchActivityList()
+          .then((List<ActivityModel> value) => s.activityList.addAll(value)));
+    }
+  }
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return Injector(
-        inject: <Injectable>[Inject<HomeState>(() =>  getIt<HomeState>())],
+        inject: <Injectable>[Inject<HomeState>(() => getIt<HomeState>())],
         builder: (_) => HomePage());
   }
 }
