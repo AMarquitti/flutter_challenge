@@ -17,52 +17,31 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    Future<bool> _onWillPop() async {
-      return (await showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(FlutterI18n.translate(context, 'exit.title')),
-              content: Text(FlutterI18n.translate(context, 'exit.body')),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('No'),
-                ),
-                FlatButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: Text(FlutterI18n.translate(context, 'exit.yes')),
-                ),
-              ],
-            ),
-          )) ??
-          false;
-    }
+    
 
-    return WillPopScope(
-        onWillPop: _onWillPop,
-        child: Layout(
-            backgroundColor: Colors.white,
-            widgetTopLeft: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop(false);
-                },
-                child: const Icon(
-                  Icons.keyboard_backspace,
-                  size: 40.0,
-                  color: Colors.white,
-                )),
-            bottomNavigationBar:
-                const AppBottomBar(currentIndex: AppBottomBarContent.home),
-            child: SingleChildScrollView(
-                child: Column(
-              children: <Widget>[
-                ProfileHeader(currentUser: currentUser),
-                Container(
-                  padding: const EdgeInsets.only(left: 23),
-                  child: ProfileBody(),
-                )
-              ],
-            ))));
+    return Layout(
+        backgroundColor: Colors.white,
+        widgetTopLeft: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Icon(
+              Icons.keyboard_backspace,
+              size: 40.0,
+              color: Colors.white,
+            )),
+        bottomNavigationBar:
+            const AppBottomBar(currentIndex: AppBottomBarContent.home),
+        child: SingleChildScrollView(
+            child: Column(
+          children: <Widget>[
+            ProfileHeader(currentUser: currentUser),
+            Container(
+              padding: const EdgeInsets.only(left: 23),
+              child: ProfileBody(),
+            )
+          ],
+        )));
   }
 
   @override

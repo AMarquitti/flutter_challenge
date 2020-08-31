@@ -35,10 +35,7 @@ class HomeState {
   }
 
   Future<List<ActivityModel>> fetchActivityList() async {
-    final List<ActivityModel> activityList =
-        await _homeLocalRepository.getActivityList();
-    activityList.shuffle();
-    return activityList;
+   return _homeLocalRepository.getActivityList();
   }
 
   Future<void> fetchActiveUsers({int activity = 0}) async {
