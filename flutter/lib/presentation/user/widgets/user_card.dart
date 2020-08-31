@@ -15,8 +15,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        ExtendedNavigator.root.pushAndRemoveUntil(
-            Routes.profilePage, (Route<dynamic> route) => true,
+        ExtendedNavigator.root.push(Routes.profilePage,
             arguments: ProfilePageArguments(currentUser: user));
       },
       child: Container(

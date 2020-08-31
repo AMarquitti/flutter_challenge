@@ -35,6 +35,27 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
       titlePosition.setState((double s) => s = _scrollController.offset);
     });
 
+    Future<bool> _onWillPop() async {
+      return (await showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(FlutterI18n.translate(context, 'exit.title')),
+              content: Text(FlutterI18n.translate(context, 'exit.body')),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('No'),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text(FlutterI18n.translate(context, 'exit.yes')),
+                ),
+              ],
+            ),
+          )) ??
+          false;
+    }
+
     Widget buildListView(ScrollController scrollController) =>
         StateBuilder<HomeState>(
           afterInitialBuild: (_, ReactiveModel<HomeState> model) {
@@ -43,6 +64,7 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
           },
           observe: () => _homeState,
           builder: (BuildContext context, ReactiveModel<dynamic> model) {
+            model.state.activityList.shuffle();
             return Container(
               color: Colors.transparent,
               height: 200,
@@ -62,72 +84,76 @@ class HomePage extends HookWidget implements AutoRouteWrapper {
           },
         );
 
-    return Layout(
-        drawer: true,
-        widgetTopRight: UserCard(
-          user: currentUser,
-          radius: 24,
-        ),
-        backgroundColor: ColorPalette.primaryColor,
-        bottomNavigationBar:
-            const AppBottomBar(currentIndex: AppBottomBarContent.home),
-        title: StateBuilder<double>(
-          observe: () => titlePosition,
-          builder: (_, __) => Positioned(
-              top: 100,
-              left: 50,
-              child: Txt(
-                FlutterI18n.translate(context, 'titles.authLanding'),
-                style: titleWhite..fontSize(48 - (titlePosition.state * 0.4)),
-              )),
-        ),
-        subtitle: StateBuilder<double>(
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Layout(
+          drawer: true,
+          widgetTopRight: UserCard(
+            user: currentUser,
+            radius: 24,
+          ),
+          backgroundColor: ColorPalette.primaryColor,
+          bottomNavigationBar:
+              const AppBottomBar(currentIndex: AppBottomBarContent.home),
+          title: StateBuilder<double>(
             observe: () => titlePosition,
             builder: (_, __) => Positioned(
-                top: 150,
-                left: 140,
+                top: 100,
+                left: 50,
                 child: Txt(
-                  FlutterI18n.translate(context, 'subtitles.authLanding'),
-                  style: titleGreen..fontSize(48 - (titlePosition.state * 0.4)),
-                ))),
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Container(
-            width: double.infinity,
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                    top: 150,
-                    right: -120,
-                    child: Image.asset(
-                      'assets/img/green_line.png',
-                      scale: 1,
-                    )),
-                Container(
-                    padding: const EdgeInsets.only(left: 23),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(height: 250),
-                        Txt(
-                            FlutterI18n.translate(
-                                context, 'subtitles.recommended'),
-                            style: subtitleStyle.clone()
-                              ..textColor(Colors.white)),
-                        const SizedBox(height: 10),
-                        buildListView(_listScrollController),
-                        const SizedBox(height: 20),
-                        Txt(FlutterI18n.translate(context, 'subtitles.news'),
-                            style: subtitleStyle.clone()
-                              ..textColor(Colors.white)),
-                        const SizedBox(height: 10),
-                        buildListView(_listScrollControllerSecond),
-                      ],
-                    ))
-              ],
-            ),
+                  FlutterI18n.translate(context, 'titles.authLanding'),
+                  style: titleWhite..fontSize(48 - (titlePosition.state * 0.4)),
+                )),
           ),
-        ));
+          subtitle: StateBuilder<double>(
+              observe: () => titlePosition,
+              builder: (_, __) => Positioned(
+                  top: 150,
+                  left: 140,
+                  child: Txt(
+                    FlutterI18n.translate(context, 'subtitles.authLanding'),
+                    style: titleGreen
+                      ..fontSize(48 - (titlePosition.state * 0.4)),
+                  ))),
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Container(
+              width: double.infinity,
+              child: Stack(
+                children: <Widget>[
+                  Positioned(
+                      top: 150,
+                      right: -120,
+                      child: Image.asset(
+                        'assets/img/green_line.png',
+                        scale: 1,
+                      )),
+                  Container(
+                      padding: const EdgeInsets.only(left: 23),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const SizedBox(height: 250),
+                          Txt(
+                              FlutterI18n.translate(
+                                  context, 'subtitles.recommended'),
+                              style: subtitleStyle.clone()
+                                ..textColor(Colors.white)),
+                          const SizedBox(height: 10),
+                          buildListView(_listScrollController),
+                          const SizedBox(height: 20),
+                          Txt(FlutterI18n.translate(context, 'subtitles.news'),
+                              style: subtitleStyle.clone()
+                                ..textColor(Colors.white)),
+                          const SizedBox(height: 10),
+                          buildListView(_listScrollControllerSecond),
+                        ],
+                      ))
+                ],
+              ),
+            ),
+          )),
+    );
   }
 
   void _scrollListener(ScrollController scrollController) {
