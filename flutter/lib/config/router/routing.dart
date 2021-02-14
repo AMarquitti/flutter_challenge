@@ -5,6 +5,8 @@ import '../../presentation/auth/auth_page.dart';
 import '../../presentation/home/home_page.dart';
 import '../../presentation/splash/splash.dart';
 import '../../presentation/user/profile_page.dart';
+import '../../presentation/workout/workout_landing.dart';
+import 'guard/auth_guard.dart';
 
 
 @MaterialAutoRouter(
@@ -14,10 +16,17 @@ import '../../presentation/user/profile_page.dart';
     //secure
     CustomRoute<dynamic>(
         page: ProfilePage,
+        guards: <Type>[AuthGuard],
         transitionsBuilder: TransitionsBuilders.fadeIn,
         durationInMilliseconds: 400),
     CustomRoute<dynamic>(
         page: HomePage,
+        guards: <Type>[AuthGuard],
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        durationInMilliseconds: 400),
+    CustomRoute<dynamic>(
+        page: WorkoutLanding,
+        guards: <Type>[AuthGuard],
         transitionsBuilder: TransitionsBuilders.fadeIn,
         durationInMilliseconds: 400),
   ],

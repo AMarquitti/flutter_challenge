@@ -7,7 +7,7 @@ import '../../../config/router/routing.gr.dart';
 import '../../../core/res/color_palette.dart';
 
 class UserCard extends StatelessWidget {
-  const UserCard({this.user, this.radius = 36});
+  const UserCard({Key key, this.user, this.radius = 36}) : super(key: key);
   final UserModel user;
   final double radius;
 

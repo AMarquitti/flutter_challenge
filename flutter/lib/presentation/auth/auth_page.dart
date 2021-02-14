@@ -20,6 +20,7 @@ import '../core/widgets/lang_changer.dart';
 import '../core/widgets/text_field.dart';
 
 class AuthPage extends StatelessWidget implements AutoRouteWrapper {
+  const AuthPage({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Size _screen = MediaQuery.of(context).size;
@@ -250,5 +251,5 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) => Injector(
       inject: <Injectable>[Inject<AuthState>(() => getIt<AuthState>())],
-      builder: (_) => AuthPage());
+      builder: (_) => const AuthPage());
 }

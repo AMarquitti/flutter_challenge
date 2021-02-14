@@ -1,26 +1,23 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:challange_shared/model/activity_model.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../config/router/routing.gr.dart';
 import '../../../core/res/color_palette.dart';
 import '../../core/styles/general_style.dart';
 
 class HomeActivityCard extends StatelessWidget {
-  const HomeActivityCard({this.activity});
+  const HomeActivityCard({Key key, this.activity}) : super(key: key);
   final ActivityModel activity;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Fluttertoast.showToast(
-            msg: FlutterI18n.translate(context, 'tips.userCard'),
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
-            backgroundColor: Colors.black87,
-            textColor: Colors.white),
-          child: Parent(
+      onTap: () => ExtendedNavigator.root.push(Routes.workoutLanding,
+          arguments: WorkoutLandingArguments(activity: activity)),
+      child: Parent(
         style: ParentStyle()
           ..background
               .image(path: 'assets/img/${activity.image}', fit: BoxFit.cover)

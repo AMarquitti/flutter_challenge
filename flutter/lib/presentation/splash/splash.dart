@@ -7,6 +7,8 @@ import '../../config/router/routing.gr.dart';
 import '../../core/res/color_palette.dart';
 
 class Splash extends HookWidget {
+  const Splash({Key key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     final AnimationController animationController =

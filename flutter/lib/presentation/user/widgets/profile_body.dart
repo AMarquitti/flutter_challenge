@@ -13,6 +13,9 @@ import '../../home/widgets/home_activity_card.dart';
 import '../../user/widgets/user_card.dart';
 
 class ProfileBody extends HookWidget {
+  
+  const ProfileBody({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ReactiveModel<HomeState> homeModel = RM.get<HomeState>();

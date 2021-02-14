@@ -19,15 +19,5 @@ abstract class ValueObjects<T> {
       value.fold((ValueObjectFailure l) => l as T, (_) => null);
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is ValueObjects<T> && o.value == value;
-  }
-
-  @override
-  int get hashCode => value.hashCode;
-
-  @override
   String toString() => 'Value($value)';
 }

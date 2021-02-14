@@ -19,6 +19,8 @@ class Layout extends StatelessWidget {
     this.title = const SizedBox(),
     this.subtitle = const SizedBox(),
     this.drawer = false,
+    this.stack = true,
+    this.appBar,
     this.backgroundColor,
   }) : super(key: key);
 
@@ -32,6 +34,8 @@ class Layout extends StatelessWidget {
   final Widget title;
   final Widget subtitle;
   final bool drawer;
+  final bool stack;
+  final Widget appBar;
   final Color backgroundColor;
 
   @override
@@ -48,22 +52,28 @@ class Layout extends StatelessWidget {
 
   Widget buildVerticalLayout(BuildContext context) {
     final ReactiveModel<GlobalConfig> globalConfig = RM.get<GlobalConfig>();
+    final List<Widget> widgets = <Widget>[
+      child,
+      title,
+      subtitle,
+      rowTopLeftRigth(),
+    ];
     return StateBuilder<GlobalConfig>(
         observe: () => globalConfig,
         builder: (_, __) => Scaffold(
               drawer: drawer ? HomeDrawer() : null,
+              appBar: appBar,
               bottomNavigationBar: bottomNavigationBar,
               backgroundColor: globalConfig.state.themeLight
                   ? Colors.white
                   : backgroundColor,
-              body: Stack(
-                children: <Widget>[
-                  child,
-                  title,
-                  subtitle,
-                  rowTopLeftRigth(),
-                ],
-              ),
+              body: stack
+                  ? Stack(
+                      children: widgets,
+                    )
+                  : Column(
+                      children: widgets,
+                    ),
             ));
   }
 
@@ -85,9 +95,7 @@ class Layout extends StatelessWidget {
                             image: AssetImage('assets/img/web-bg.jpg'))),
                     child: Stack(
                       children: <Widget>[
-                        Container(
-                          color:Colors.black87.withOpacity(0.7)
-                        ),
+                        Container(color: Colors.black87.withOpacity(0.7)),
                         title,
                         subtitle,
                         rowTopLeftRigth(),

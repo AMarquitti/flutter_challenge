@@ -11,7 +11,8 @@ Widget getLangChanger() {
     builder: (BuildContext context) => FlatButton(
       onPressed: () async {
         final String locale = globalConfig.state.lang == 'en' ? 'es' : 'en';
-        globalConfig.setState((GlobalConfig s) => s.setGlobalLang(locale));
+        await globalConfig
+            .setState((GlobalConfig s) => s.setGlobalLang(locale));
       },
       splashColor: Colors.deepOrange,
       shape: const CircleBorder(),

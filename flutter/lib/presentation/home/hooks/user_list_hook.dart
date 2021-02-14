@@ -20,7 +20,7 @@ class _InitializeUserListState
   Future<void> initHook() async {
     super.initHook();
     final ReactiveModel<HomeState> homeModel = RM.get<HomeState>();
-    homeModel.setState((HomeState state) => state.fetchActiveUsers());
+    await homeModel.setState((HomeState state) => state.fetchActiveUsers());
   }
 
   @override

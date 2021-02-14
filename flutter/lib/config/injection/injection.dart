@@ -8,6 +8,6 @@ final GetIt getIt = GetIt.instance;
 final EnvironmentConfig envConfig = getIt<EnvironmentConfig>();
 
 @injectableInit
-Future<void> configureInjections() async {
+Future<void> configureInjection() async {
   $initGetIt(getIt, environment: EnvironmentConfig.env);
 }
