@@ -36,8 +36,9 @@ class AppBottomBarContent extends BottomNavigationBar {
   static const int profile = 1;
   static UserModel currentUser = getIt<AuthState>().authUser;
 
-  AppBottomBarContent({int currentIndex = 0, BuildContext context})
+  AppBottomBarContent({Key key, int currentIndex = 0, BuildContext context})
       : super(
+          key: key,
           type: BottomNavigationBarType.fixed,
           fixedColor: ColorPalette.primaryColor,
           unselectedItemColor: ColorPalette.primaryColor,

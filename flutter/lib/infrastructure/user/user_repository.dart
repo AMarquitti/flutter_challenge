@@ -21,7 +21,7 @@ class UserRepository {
     response.data['results'].forEach((dynamic userData) {
       userList.add(UserModel.fromJson(userData));
     });
-    prefs.setString('usersListValues', json.encode(userList));
+    await prefs.setString('usersListValues', json.encode(userList));
     return userList;
   }
 }

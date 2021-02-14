@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
             ProfileHeader(currentUser: currentUser),
             Container(
               padding: const EdgeInsets.only(left: 23),
-              child: ProfileBody(),
+              child: const ProfileBody(),
             )
           ],
         )));

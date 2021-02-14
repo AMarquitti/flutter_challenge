@@ -3,7 +3,7 @@ import 'package:challange_shared/model/user_model.dart';
 import 'package:flutter/material.dart';
 
 class UserCompetitorCard extends StatelessWidget {
-  const UserCompetitorCard({this.user});
+  const UserCompetitorCard({Key key, this.user}) : super(key: key);
   final UserModel user;
 
   @override

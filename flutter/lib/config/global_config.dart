@@ -5,14 +5,14 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/utils/colors.dart';
-import 'router/routing.gr.dart';
+import 'router/routing.gr.dart' as rt;
 
 @singleton
 class GlobalConfig {
   SharedPreferences prefs;
   String lang = 'en';
   bool themeLight = false;
-  Router router;
+  rt.Router router;
   FlutterI18nDelegate flutterI18nDelegate;
 
   Future<void> init() async {
@@ -30,7 +30,7 @@ class GlobalConfig {
 
   Future<void> setGlobalLang(String selectedLang) async {
     lang = selectedLang;
-    prefs.setString('lang', selectedLang);
+    await prefs.setString('lang', selectedLang);
     flutterI18nDelegate = FlutterI18nDelegate(
       translationLoader: FileTranslationLoader(
           basePath: 'lang', forcedLocale: Locale(selectedLang)),
@@ -39,7 +39,7 @@ class GlobalConfig {
 
   Future<void> setGlobalTheme({@required bool themeValue}) async {
     themeLight = !themeValue;
-    prefs.setBool('theme', themeLight);
+    await prefs.setBool('theme', themeLight);
   }
 
   ThemeData get themeData {

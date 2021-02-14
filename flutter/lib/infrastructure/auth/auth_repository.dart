@@ -30,8 +30,8 @@ class AuthRepository {
       final UserModel authUser = UserModel.fromMap(response.data['results'][0]);
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      prefs.setString('authUser', json.encode(authUser));
-      prefs.setString('token', 'somerandomtoken');
+      await prefs.setString('authUser', json.encode(authUser));
+      await prefs.setString('token', 'somerandomtoken');
 
       return right(authUser);
     } on DioError catch (_) {

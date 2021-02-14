@@ -11,7 +11,7 @@ import '../../../core/res/color_palette.dart';
 import '../../core/widgets/lang_changer.dart';
 
 class HomeDrawer extends HookWidget {
-  HomeDrawer();
+  HomeDrawer({Key key}) : super(key: key);
   final ReactiveModel<GlobalConfig> globalConfig = RM.get<GlobalConfig>();
   @override
   Widget build(BuildContext context) {

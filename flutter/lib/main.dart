@@ -6,11 +6,11 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import 'config/global_config.dart';
 import 'config/injection/injection.dart';
 import 'config/router/guard/auth_guard.dart';
-import 'config/router/routing.gr.dart';
+import 'config/router/routing.gr.dart' as rt;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureInjections();
+  await configureInjection();
   final GlobalConfig globalConfig = getIt<GlobalConfig>();
   await globalConfig.init();
   runApp(ChallengeApp(globalConfig));
@@ -22,7 +22,7 @@ class ChallengeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Router router = Router();
+    final rt.Router router = rt.Router();
     return Injector(
         inject: <Injectable>[Inject<GlobalConfig>(() => globalConfig)],
         builder: (_) => StateBuilder<GlobalConfig>(
@@ -35,11 +35,11 @@ class ChallengeApp extends StatelessWidget {
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                   ],
-                  builder: ExtendedNavigator<Router>(
+                  builder: ExtendedNavigator<rt.Router>(
                     router: router,
                     guards: <RouteGuard>[AuthGuard()],
                   ),
-                  initialRoute: Routes.splash,
+                  initialRoute: rt.Routes.splash,
                   onGenerateRoute: router.onGenerateRoute,
                 )));
   }
